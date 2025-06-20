@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Info } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   return (
