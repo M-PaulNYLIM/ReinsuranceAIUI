@@ -97,6 +97,7 @@ const Index = () => {
               variant="outline"
               size="lg"
               className="border-gray-400 bg-gray-200 text-gray-800 hover:bg-gray-300 px-6 py-3"
+              onClick={() => navigate("/reinsurer-details")}
             >
               Reinsurer Details
             </Button>
