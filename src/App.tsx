@@ -18,6 +18,11 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/reinsurer-details" element={<ReinsurerDetails />} />
+          <Route
+            path="/policy-transactions/:treatyID"
+            element={<PolicyTransactionDetails />}
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
