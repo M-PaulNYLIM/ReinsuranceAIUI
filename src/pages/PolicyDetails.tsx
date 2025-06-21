@@ -111,7 +111,7 @@ const PolicyDetails = () => {
 
   // Filtered data based on search criteria
   const filteredData = useMemo(() => {
-    return samplePolicyData.filter((item) => {
+    return policyData.filter((item) => {
       const matchesPolicyNumber = item.policyNumber
         .toLowerCase()
         .includes(searchPolicyNumber.toLowerCase());
