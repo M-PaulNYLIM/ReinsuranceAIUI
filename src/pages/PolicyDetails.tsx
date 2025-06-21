@@ -203,8 +203,8 @@ const PolicyDetails = () => {
               Policy Details
             </h1>
             <p className="text-xl text-gray-600">
-              Manage and view comprehensive information about your insurance
-              policies
+              Manage and view comprehensive reinsurance information about your
+              insurance policies
             </p>
           </div>
 
