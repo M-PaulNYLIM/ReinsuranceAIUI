@@ -81,9 +81,9 @@ const ReinsurerDetails = () => {
       const matchesReinsurerID = item.reinsurerID
         .toLowerCase()
         .includes(searchReinsurerID.toLowerCase());
-      const matchesReinsurerName = item.reinsurerName
+      const matchesTreatyID = item.treatyID
         .toLowerCase()
-        .includes(searchReinsurerName.toLowerCase());
+        .includes(searchTreatyID.toLowerCase());
       const matchesStartDate =
         !searchStartDate || item.periodStartDate >= searchStartDate;
       const matchesEndDate =
@@ -100,7 +100,7 @@ const ReinsurerDetails = () => {
 
       return (
         matchesReinsurerID &&
-        matchesReinsurerName &&
+        matchesTreatyID &&
         matchesStartDate &&
         matchesEndDate &&
         matchesColumnFilters
@@ -108,7 +108,7 @@ const ReinsurerDetails = () => {
     });
   }, [
     searchReinsurerID,
-    searchReinsurerName,
+    searchTreatyID,
     searchStartDate,
     searchEndDate,
     columnFilters,
