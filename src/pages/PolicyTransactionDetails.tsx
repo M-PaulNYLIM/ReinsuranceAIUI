@@ -525,10 +525,16 @@ const PolicyTransactionDetails = () => {
 
           <div className="text-center mt-8">
             <Button
-              onClick={() => navigate("/reinsurer-details")}
+              onClick={() =>
+                navigate(
+                  policyNumber ? "/policy-details" : "/reinsurer-details",
+                )
+              }
               className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
             >
-              Return to Reinsurer Details
+              {policyNumber
+                ? "Return to Policy Details"
+                : "Return to Reinsurer Details"}
             </Button>
           </div>
         </div>
