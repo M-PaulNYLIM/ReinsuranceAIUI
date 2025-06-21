@@ -20,73 +20,60 @@ import { ArrowLeft, Search, Filter, Eye, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-// Sample policy data - in a real app this would come from an API
-const samplePolicyData = [
-  {
-    policyNumber: "POL-2024-001",
-    productName: "Variable Universal Life",
-    firmName: "ABC Financial Advisors",
-    accountValue: "$125,450.00",
-    applicationSignDate: "2024-01-15",
-    status: "Active",
-  },
-  {
-    policyNumber: "POL-2024-002",
-    productName: "Term Life Insurance",
-    firmName: "XYZ Investment Group",
-    accountValue: "$87,230.00",
-    applicationSignDate: "2024-02-03",
-    status: "Active",
-  },
-  {
-    policyNumber: "POL-2024-003",
-    productName: "Whole Life Insurance",
-    firmName: "Global Wealth Management",
-    accountValue: "$156,780.00",
-    applicationSignDate: "2024-01-28",
-    status: "Pending",
-  },
-  {
-    policyNumber: "POL-2024-004",
-    productName: "Universal Life Insurance",
-    firmName: "Premier Financial Services",
-    accountValue: "$203,560.00",
-    applicationSignDate: "2024-03-12",
-    status: "Active",
-  },
-  {
-    policyNumber: "POL-2024-005",
-    productName: "Variable Life Insurance",
-    firmName: "Elite Insurance Partners",
-    accountValue: "$98,440.00",
-    applicationSignDate: "2024-02-20",
-    status: "Cancelled",
-  },
-  {
-    policyNumber: "POL-2024-006",
-    productName: "Term Life Insurance",
-    firmName: "Trusted Advisors LLC",
-    accountValue: "$134,670.00",
-    applicationSignDate: "2024-03-05",
-    status: "Active",
-  },
-  {
-    policyNumber: "POL-2024-007",
-    productName: "Variable Universal Life",
-    firmName: "Strategic Financial Group",
-    accountValue: "$189,320.00",
-    applicationSignDate: "2024-01-10",
-    status: "Active",
-  },
-  {
-    policyNumber: "POL-2024-008",
-    productName: "Whole Life Insurance",
-    firmName: "Apex Investment Solutions",
-    accountValue: "$112,890.00",
-    applicationSignDate: "2024-02-14",
-    status: "Pending",
-  },
-];
+// API response type
+interface ApiPolicyData {
+  POLICY_NUMBER: number;
+  PRODUCT_NAME: string;
+  RF_FIRM_NAME: string;
+  ENDING_AV: string;
+  RRCF_DATE_ADDED: string;
+}
+
+// Transformed data type for display
+interface PolicyData {
+  policyNumber: string;
+  productName: string;
+  firmName: string;
+  accountValue: string;
+  applicationSignDate: string;
+  status: string;
+}
+
+// API fetch function
+const fetchPolicyData = async (): Promise<ApiPolicyData[]> => {
+  const response = await fetch(
+    "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataPolicyLanding",
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch policy data");
+  }
+
+  return response.json();
+};
+
+// Generate random status
+const getRandomStatus = (): string => {
+  const statuses = ["Active", "Pending", "Cancelled"];
+  return statuses[Math.floor(Math.random() * statuses.length)];
+};
+
+// Transform API data to display format
+const transformApiData = (apiData: ApiPolicyData[]): PolicyData[] => {
+  return apiData.map((item) => ({
+    policyNumber: item.POLICY_NUMBER.toString(),
+    productName: item.PRODUCT_NAME,
+    firmName: item.RF_FIRM_NAME,
+    accountValue: `$${parseFloat(item.ENDING_AV).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`,
+    applicationSignDate: new Date(item.RRCF_DATE_ADDED)
+      .toISOString()
+      .split("T")[0],
+    status: getRandomStatus(),
+  }));
+};
 
 const PolicyDetails = () => {
   const navigate = useNavigate();
