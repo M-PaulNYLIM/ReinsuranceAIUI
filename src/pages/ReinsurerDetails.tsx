@@ -13,54 +13,56 @@ import { ArrowLeft, Search, Filter, Eye, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
-// Sample data - in a real app this would come from an API
-const sampleData = [
-  {
-    reinsurerID: "RE001",
-    treatyID: "TR2024001",
-    quotaShare: "25%",
-    cedingAllowance: "15%",
-    expenseAllowance: "10%",
-    periodStartDate: "2024-01-01",
-    periodEndDate: "2024-12-31",
-  },
-  {
-    reinsurerID: "RE002",
-    treatyID: "TR2024002",
-    quotaShare: "30%",
-    cedingAllowance: "18%",
-    expenseAllowance: "12%",
-    periodStartDate: "2024-01-15",
-    periodEndDate: "2024-12-31",
-  },
-  {
-    reinsurerID: "RE003",
-    treatyID: "TR2024003",
-    quotaShare: "20%",
-    cedingAllowance: "16%",
-    expenseAllowance: "11%",
-    periodStartDate: "2024-02-01",
-    periodEndDate: "2024-12-31",
-  },
-  {
-    reinsurerID: "RE004",
-    treatyID: "TR2024004",
-    quotaShare: "35%",
-    cedingAllowance: "20%",
-    expenseAllowance: "13%",
-    periodStartDate: "2024-01-01",
-    periodEndDate: "2024-12-31",
-  },
-  {
-    reinsurerID: "RE005",
-    treatyID: "TR2024005",
-    quotaShare: "22%",
-    cedingAllowance: "17%",
-    expenseAllowance: "9%",
-    periodStartDate: "2024-03-01",
-    periodEndDate: "2024-12-31",
-  },
-];
+// API response type
+interface ApiReinsurerData {
+  REINSURER_ID: number;
+  REINSURER_NAME: string;
+  TREATY_ID: number;
+  QUOTA_SHARE: string;
+  CEDEING_ALL_PREM: string;
+  EXPENSE_ALL_PREM: string;
+  PER_START_DATE: string;
+  PER_END_DATE: string;
+}
+
+// Transformed data type for display
+interface ReinsurerData {
+  reinsurerID: string;
+  reinsurerName: string;
+  treatyID: string;
+  quotaShare: string;
+  cedingAllowance: string;
+  expenseAllowance: string;
+  periodStartDate: string;
+  periodEndDate: string;
+}
+
+// API fetch function
+const fetchReinsurerData = async (): Promise<ApiReinsurerData[]> => {
+  const response = await fetch(
+    "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerLanding",
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch reinsurer data");
+  }
+
+  return response.json();
+};
+
+// Transform API data to display format
+const transformApiData = (apiData: ApiReinsurerData[]): ReinsurerData[] => {
+  return apiData.map((item) => ({
+    reinsurerID: item.REINSURER_ID.toString(),
+    reinsurerName: item.REINSURER_NAME,
+    treatyID: item.TREATY_ID.toString(),
+    quotaShare: `${parseFloat(item.QUOTA_SHARE).toFixed(2)}%`,
+    cedingAllowance: parseFloat(item.CEDEING_ALL_PREM).toFixed(4),
+    expenseAllowance: parseFloat(item.EXPENSE_ALL_PREM).toFixed(4),
+    periodStartDate: new Date(item.PER_START_DATE).toISOString().split("T")[0],
+    periodEndDate: new Date(item.PER_END_DATE).toISOString().split("T")[0],
+  }));
+};
 
 const ReinsurerDetails = () => {
   const navigate = useNavigate();
