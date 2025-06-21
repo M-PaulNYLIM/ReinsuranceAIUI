@@ -168,11 +168,30 @@ const PolicyTransactionDetails = () => {
     sampleTransactions,
   ]);
 
+  // Paginated data
+  const paginatedData = useMemo(() => {
+    const startIndex = (currentPage - 1) * rowsPerPage;
+    const endIndex = startIndex + rowsPerPage;
+    return filteredData.slice(startIndex, endIndex);
+  }, [filteredData, currentPage, rowsPerPage]);
+
+  // Pagination calculations
+  const totalPages = Math.ceil(filteredData.length / rowsPerPage);
+  const startRecord =
+    filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+  const endRecord = Math.min(currentPage * rowsPerPage, filteredData.length);
+
   const handleColumnFilter = (column: string, value: string) => {
     setColumnFilters((prev) => ({
       ...prev,
       [column]: value,
     }));
+    setCurrentPage(1); // Reset to first page when filtering
+  };
+
+  const handleRowsPerPageChange = (newRowsPerPage: number) => {
+    setRowsPerPage(newRowsPerPage);
+    setCurrentPage(1); // Reset to first page when changing rows per page
   };
 
   return (
