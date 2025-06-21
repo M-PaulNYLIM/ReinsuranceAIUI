@@ -1,0 +1,48 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci --production=false
+
+  pre_build:
+    commands:
+      - echo "Running pre-build checks..."
+      - echo "Type checking..."
+      - npm run typecheck
+      - echo "Running tests..."
+      - npm run test
+      - echo "Formatting check..."
+      - npx prettier --check .
+
+  build:
+    commands:
+      - echo "Building the application..."
+      - npm run build
+      - echo "Build completed successfully"
+
+  post_build:
+    commands:
+      - echo "Post-build phase..."
+      - echo "Listing build artifacts..."
+      - ls -la dist/
+      - echo "Build process completed"
+
+artifacts:
+  files:
+    - "**/*"
+  base-directory: "dist"
+  name: recap-frontend-$(date +%Y-%m-%d-%H-%M-%S)
+
+cache:
+  paths:
+    - "node_modules/**/*"
+    - ".npm/**/*"
+
+env:
+  variables:
+    NODE_ENV: "production"
+    CI: "true"
