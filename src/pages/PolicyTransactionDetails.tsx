@@ -337,24 +337,47 @@ const PolicyTransactionDetails = () => {
                   setSearchTransactionType("");
                   setSearchInsuredName("");
                   setColumnFilters({});
+                  setCurrentPage(1);
                 }}
                 className="text-gray-600"
               >
                 Clear All Filters
               </Button>
             </div>
-          </div>
 
-          {/* Data Table */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Policy Transactions ({filteredData.length})
-                </h3>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Filter className="w-4 h-4" />
-                  Click column headers to filter
+            {/* Data Table */}
+            <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+              <div className="p-4 border-b border-gray-200">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Policy Transactions
+                  </h3>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2 text-sm">
+                      <span className="text-gray-600">Show:</span>
+                      <Select
+                        value={rowsPerPage.toString()}
+                        onValueChange={(value) =>
+                          handleRowsPerPageChange(Number(value))
+                        }
+                      >
+                        <SelectTrigger className="w-20 h-8">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="15">15</SelectItem>
+                          <SelectItem value="25">25</SelectItem>
+                          <SelectItem value="50">50</SelectItem>
+                          <SelectItem value="100">100</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <span className="text-gray-600">rows</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                      <Filter className="w-4 h-4" />
+                      Click column headers to filter
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
