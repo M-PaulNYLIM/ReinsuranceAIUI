@@ -146,7 +146,8 @@ const PolicyDetails = () => {
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-  const startRecord = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+  const startRecord =
+    filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
   const endRecord = Math.min(currentPage * rowsPerPage, filteredData.length);
 
   const handleColumnFilter = (column: string, value: string) => {
@@ -300,7 +301,9 @@ const PolicyDetails = () => {
                     <span className="text-gray-600">Show:</span>
                     <Select
                       value={rowsPerPage.toString()}
-                      onValueChange={(value) => handleRowsPerPageChange(Number(value))}
+                      onValueChange={(value) =>
+                        handleRowsPerPageChange(Number(value))
+                      }
                     >
                       <SelectTrigger className="w-20 h-8">
                         <SelectValue />
@@ -450,9 +453,15 @@ const PolicyDetails = () => {
                       <TableCell className="font-medium w-32">
                         {item.policyNumber}
                       </TableCell>
-                      <TableCell className="w-64">{item.policyholderName}</TableCell>
-                      <TableCell className="w-32">{item.effectiveDate}</TableCell>
-                      <TableCell className="w-32">{item.expirationDate}</TableCell>
+                      <TableCell className="w-64">
+                        {item.policyholderName}
+                      </TableCell>
+                      <TableCell className="w-32">
+                        {item.effectiveDate}
+                      </TableCell>
+                      <TableCell className="w-32">
+                        {item.expirationDate}
+                      </TableCell>
                       <TableCell className="font-medium w-28">
                         {item.premium}
                       </TableCell>
@@ -471,7 +480,9 @@ const PolicyDetails = () => {
                           {item.status}
                         </span>
                       </TableCell>
-                      <TableCell className="w-48">{item.lineOfBusiness}</TableCell>
+                      <TableCell className="w-48">
+                        {item.lineOfBusiness}
+                      </TableCell>
                       <TableCell className="font-medium w-28">
                         {item.coverage}
                       </TableCell>
@@ -493,6 +504,7 @@ const PolicyDetails = () => {
                     </TableRow>
                   ))}
                 </TableBody>
+              </Table>
 
               {filteredData.length === 0 && (
                 <div className="text-center py-8 text-gray-500">
@@ -505,7 +517,8 @@ const PolicyDetails = () => {
             {filteredData.length > 0 && (
               <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200">
                 <div className="text-sm text-gray-600">
-                  Showing {startRecord} to {endRecord} of {filteredData.length} results
+                  Showing {startRecord} to {endRecord} of {filteredData.length}{" "}
+                  results
                 </div>
                 <div className="flex items-center gap-2">
                   <Button
@@ -534,7 +547,9 @@ const PolicyDetails = () => {
                       return (
                         <Button
                           key={pageNumber}
-                          variant={currentPage === pageNumber ? "default" : "outline"}
+                          variant={
+                            currentPage === pageNumber ? "default" : "outline"
+                          }
                           size="sm"
                           onClick={() => setCurrentPage(pageNumber)}
                           className="w-8 h-8 text-sm"
@@ -548,7 +563,9 @@ const PolicyDetails = () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    onClick={() =>
+                      setCurrentPage(Math.min(totalPages, currentPage + 1))
+                    }
                     disabled={currentPage === totalPages}
                     className="text-sm"
                   >
@@ -557,7 +574,6 @@ const PolicyDetails = () => {
                 </div>
               </div>
             )}
-          </div>
           </div>
 
           <div className="text-center mt-8">
