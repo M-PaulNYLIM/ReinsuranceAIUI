@@ -66,7 +66,7 @@ const ReinsurerDetails = () => {
 
   // Search states
   const [searchReinsurerID, setSearchReinsurerID] = useState("");
-  const [searchReinsurerName, setSearchReinsurerName] = useState("");
+  const [searchTreatyID, setSearchTreatyID] = useState("");
   const [searchStartDate, setSearchStartDate] = useState("");
   const [searchEndDate, setSearchEndDate] = useState("");
 
