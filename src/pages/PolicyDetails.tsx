@@ -432,12 +432,14 @@ const PolicyDetails = () => {
                           variant="outline"
                           size="sm"
                           onClick={() =>
-                            navigate(`/policy-details/${item.policyNumber}`)
+                            navigate(
+                              `/policy-transactions/TREATY-001?start=${item.effectiveDate}&end=${item.expirationDate}&reinsurer=RE001&policy=${item.policyNumber}`,
+                            )
                           }
                           className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
                         >
-                          <FileText className="w-4 h-4" />
-                          View Policy
+                          <Eye className="w-4 h-4" />
+                          View Transactions
                         </Button>
                       </TableCell>
                     </TableRow>
