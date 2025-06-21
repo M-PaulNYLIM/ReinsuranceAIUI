@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import ReinsurerDetails from "./pages/ReinsurerDetails";
 import PolicyDetails from "./pages/PolicyDetails";
 import PolicyTransactionDetails from "./pages/PolicyTransactionDetails";
+import Analytics from "./pages/Analytics";
 
 const queryClient = new QueryClient();
 
