@@ -593,6 +593,8 @@ const PolicyDetails = () => {
               Return to Dashboard
             </Button>
           </div>
+          {/* End of conditional content */}
+          )}
         </div>
       </main>
     </div>
