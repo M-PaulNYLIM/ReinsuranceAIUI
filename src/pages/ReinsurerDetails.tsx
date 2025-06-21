@@ -334,11 +334,11 @@ const ReinsurerDetails = () => {
                   <Table>
                     <TableHeader>
                       <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-24">
                           <div className="space-y-2">
                             <div>Reinsurer ID</div>
                             <Input
-                              type="text"
+                              type="number"
                               placeholder="Filter..."
                               className="h-8 text-xs"
                               value={columnFilters.reinsurerID || ""}
@@ -351,7 +351,7 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-64">
                           <div className="space-y-2">
                             <div>Reinsurer Name</div>
                             <Input
@@ -368,11 +368,11 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-20">
                           <div className="space-y-2">
                             <div>Treaty ID</div>
                             <Input
-                              type="text"
+                              type="number"
                               placeholder="Filter..."
                               className="h-8 text-xs"
                               value={columnFilters.treatyID || ""}
@@ -382,7 +382,7 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-24">
                           <div className="space-y-2">
                             <div>Quota Share</div>
                             <Input
@@ -396,11 +396,12 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-28">
                           <div className="space-y-2">
                             <div>Ceding Allowance</div>
                             <Input
-                              type="text"
+                              type="number"
+                              step="0.0001"
                               placeholder="Filter..."
                               className="h-8 text-xs"
                               value={columnFilters.cedingAllowance || ""}
@@ -413,11 +414,12 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-28">
                           <div className="space-y-2">
                             <div>Expense Allowance</div>
                             <Input
-                              type="text"
+                              type="number"
+                              step="0.0001"
                               placeholder="Filter..."
                               className="h-8 text-xs"
                               value={columnFilters.expenseAllowance || ""}
@@ -430,12 +432,11 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Period Start Date</div>
                             <Input
-                              type="text"
-                              placeholder="Filter..."
+                              type="date"
                               className="h-8 text-xs"
                               value={columnFilters.periodStartDate || ""}
                               onChange={(e) =>
@@ -447,12 +448,11 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Period End Date</div>
                             <Input
-                              type="text"
-                              placeholder="Filter..."
+                              type="date"
                               className="h-8 text-xs"
                               value={columnFilters.periodEndDate || ""}
                               onChange={(e) =>
@@ -464,7 +464,7 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900">
+                        <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="py-2">Actions</div>
                         </TableHead>
                       </TableRow>
