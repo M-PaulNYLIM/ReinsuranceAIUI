@@ -294,11 +294,33 @@ const PolicyDetails = () => {
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold text-gray-900">
-                  Policy Records ({filteredData.length})
+                  Policy Records
                 </h3>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Filter className="w-4 h-4" />
-                  Click column headers to filter
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-gray-600">Show:</span>
+                    <Select
+                      value={rowsPerPage.toString()}
+                      onValueChange={(value) =>
+                        handleRowsPerPageChange(Number(value))
+                      }
+                    >
+                      <SelectTrigger className="w-20 h-8">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="15">15</SelectItem>
+                        <SelectItem value="25">25</SelectItem>
+                        <SelectItem value="50">50</SelectItem>
+                        <SelectItem value="100">100</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <span className="text-gray-600">rows</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Filter className="w-4 h-4" />
+                    Click column headers to filter
+                  </div>
                 </div>
               </div>
             </div>
@@ -307,7 +329,7 @@ const PolicyDetails = () => {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-gray-50">
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="space-y-2">
                         <div>Policy Number</div>
                         <Input
@@ -321,7 +343,7 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-64">
                       <div className="space-y-2">
                         <div>Policyholder Name</div>
                         <Input
@@ -338,12 +360,11 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="space-y-2">
                         <div>Effective Date</div>
                         <Input
-                          type="text"
-                          placeholder="Filter..."
+                          type="date"
                           className="h-8 text-xs"
                           value={columnFilters.effectiveDate || ""}
                           onChange={(e) =>
@@ -352,12 +373,11 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="space-y-2">
                         <div>Expiration Date</div>
                         <Input
-                          type="text"
-                          placeholder="Filter..."
+                          type="date"
                           className="h-8 text-xs"
                           value={columnFilters.expirationDate || ""}
                           onChange={(e) =>
@@ -366,7 +386,7 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-28">
                       <div className="space-y-2">
                         <div>Premium</div>
                         <Input
@@ -380,7 +400,7 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-24">
                       <div className="space-y-2">
                         <div>Status</div>
                         <Input
@@ -394,7 +414,7 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-48">
                       <div className="space-y-2">
                         <div>Line of Business</div>
                         <Input
@@ -408,7 +428,7 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-28">
                       <div className="space-y-2">
                         <div>Coverage</div>
                         <Input
@@ -422,7 +442,7 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="py-2">Actions</div>
                     </TableHead>
                   </TableRow>
