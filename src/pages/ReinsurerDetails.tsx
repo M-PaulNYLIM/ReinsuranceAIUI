@@ -191,13 +191,13 @@ const ReinsurerDetails = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Reinsurer Name
+                  Treaty ID
                 </label>
                 <Input
                   type="text"
-                  placeholder="Search by Reinsurer Name"
-                  value={searchReinsurerName}
-                  onChange={(e) => setSearchReinsurerName(e.target.value)}
+                  placeholder="Search by Treaty ID"
+                  value={searchTreatyID}
+                  onChange={(e) => setSearchTreatyID(e.target.value)}
                   className="w-full"
                 />
               </div>
@@ -232,7 +232,7 @@ const ReinsurerDetails = () => {
                 variant="outline"
                 onClick={() => {
                   setSearchReinsurerID("");
-                  setSearchReinsurerName("");
+                  setSearchTreatyID("");
                   setSearchStartDate("");
                   setSearchEndDate("");
                   setColumnFilters({});
