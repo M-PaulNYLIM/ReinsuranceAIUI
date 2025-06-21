@@ -432,17 +432,13 @@ const PolicyDetails = () => {
                       <TableCell className="font-medium w-32">
                         {item.policyNumber}
                       </TableCell>
-                      <TableCell className="w-64">
-                        {item.policyholderName}
+                      <TableCell className="w-48">{item.productName}</TableCell>
+                      <TableCell className="w-48">{item.firmName}</TableCell>
+                      <TableCell className="font-medium w-32">
+                        {item.accountValue}
                       </TableCell>
-                      <TableCell className="w-32">
-                        {item.effectiveDate}
-                      </TableCell>
-                      <TableCell className="w-32">
-                        {item.expirationDate}
-                      </TableCell>
-                      <TableCell className="font-medium w-28">
-                        {item.premium}
+                      <TableCell className="w-36">
+                        {item.applicationSignDate}
                       </TableCell>
                       <TableCell className="w-24">
                         <span
@@ -451,34 +447,13 @@ const PolicyDetails = () => {
                               ? "bg-green-100 text-green-800"
                               : item.status === "Cancelled"
                                 ? "bg-red-100 text-red-800"
-                                : item.status === "Expired"
-                                  ? "bg-gray-100 text-gray-800"
-                                  : "bg-yellow-100 text-yellow-800"
+                                : item.status === "Pending"
+                                  ? "bg-yellow-100 text-yellow-800"
+                                  : "bg-gray-100 text-gray-800"
                           }`}
                         >
                           {item.status}
                         </span>
-                      </TableCell>
-                      <TableCell className="w-48">
-                        {item.lineOfBusiness}
-                      </TableCell>
-                      <TableCell className="font-medium w-28">
-                        {item.coverage}
-                      </TableCell>
-                      <TableCell className="w-32">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() =>
-                            navigate(
-                              `/policy-transactions/TREATY-001?start=${item.effectiveDate}&end=${item.expirationDate}&reinsurer=RE001&policy=${item.policyNumber}`,
-                            )
-                          }
-                          className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-                        >
-                          <Eye className="w-4 h-4" />
-                          View Transactions
-                        </Button>
                       </TableCell>
                     </TableRow>
                   ))}
