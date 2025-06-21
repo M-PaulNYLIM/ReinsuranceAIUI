@@ -7,7 +7,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Info, BarChart3, FileText, Settings, TrendingUp } from "lucide-react";
+import {
+  Info,
+  BarChart3,
+  FileText,
+  Settings,
+  TrendingUp,
+  Building2,
+  ScrollText,
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
