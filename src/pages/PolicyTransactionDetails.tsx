@@ -93,12 +93,16 @@ const generateSampleTransactions = (treatyID: string) => [
 
 const PolicyTransactionDetails = () => {
   const navigate = useNavigate();
-  const { treatyID } = useParams<{ treatyID: string }>();
+  const { treatyID, policyNumber } = useParams<{
+    treatyID?: string;
+    policyNumber?: string;
+  }>();
   const [searchParams] = useSearchParams();
 
   const periodStart = searchParams.get("start") || "";
   const periodEnd = searchParams.get("end") || "";
   const reinsurerID = searchParams.get("reinsurer") || "";
+  const policyParam = searchParams.get("policy") || "";
 
   // Search states
   const [searchPolicyNumber, setSearchPolicyNumber] = useState("");
