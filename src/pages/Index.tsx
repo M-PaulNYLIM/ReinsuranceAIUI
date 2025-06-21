@@ -30,7 +30,7 @@ const Index = () => {
           <img
             src="https://cdn.builder.io/api/v1/assets/355436a8ffc842c098645b5de5188677/chatgpt-image-jun-20-2025-07_18_36-pm-be90f6?format=webp&width=800"
             alt="RECAP - Reinsurance Engine for Calculations, Administration & Processing"
-            className="h-9 w-auto"
+            className="h-16 w-auto"
           />
         </div>
 
