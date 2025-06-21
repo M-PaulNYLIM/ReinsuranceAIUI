@@ -522,7 +522,7 @@ const ReinsurerDetails = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {filteredData.map((item, index) => (
+                      {paginatedData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
                           <TableCell className="font-medium w-24">
                             {item.reinsurerID}
