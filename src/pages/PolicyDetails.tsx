@@ -111,15 +111,15 @@ const PolicyDetails = () => {
       const matchesPolicyNumber = item.policyNumber
         .toLowerCase()
         .includes(searchPolicyNumber.toLowerCase());
-      const matchesPolicyholderName = item.policyholderName
+      const matchesProductName = item.productName
         .toLowerCase()
-        .includes(searchPolicyholderName.toLowerCase());
+        .includes(searchProductName.toLowerCase());
+      const matchesFirmName = item.firmName
+        .toLowerCase()
+        .includes(searchFirmName.toLowerCase());
       const matchesStatus = item.status
         .toLowerCase()
         .includes(searchStatus.toLowerCase());
-      const matchesLineOfBusiness = item.lineOfBusiness
-        .toLowerCase()
-        .includes(searchLineOfBusiness.toLowerCase());
 
       // Apply column filters
       const matchesColumnFilters = Object.entries(columnFilters).every(
@@ -132,17 +132,17 @@ const PolicyDetails = () => {
 
       return (
         matchesPolicyNumber &&
-        matchesPolicyholderName &&
+        matchesProductName &&
+        matchesFirmName &&
         matchesStatus &&
-        matchesLineOfBusiness &&
         matchesColumnFilters
       );
     });
   }, [
     searchPolicyNumber,
-    searchPolicyholderName,
+    searchProductName,
+    searchFirmName,
     searchStatus,
-    searchLineOfBusiness,
     columnFilters,
   ]);
 
