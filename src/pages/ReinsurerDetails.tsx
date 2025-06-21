@@ -97,10 +97,13 @@ const ReinsurerDetails = () => {
 
   // Filtered data based on search criteria
   const filteredData = useMemo(() => {
-    return sampleData.filter((item) => {
+    return reinsurerData.filter((item) => {
       const matchesReinsurerID = item.reinsurerID
         .toLowerCase()
         .includes(searchReinsurerID.toLowerCase());
+      const matchesReinsurerName = item.reinsurerName
+        .toLowerCase()
+        .includes(searchReinsurerName.toLowerCase());
       const matchesTreatyID = item.treatyID
         .toLowerCase()
         .includes(searchTreatyID.toLowerCase());
@@ -120,6 +123,7 @@ const ReinsurerDetails = () => {
 
       return (
         matchesReinsurerID &&
+        matchesReinsurerName &&
         matchesTreatyID &&
         matchesStartDate &&
         matchesEndDate &&
@@ -128,10 +132,12 @@ const ReinsurerDetails = () => {
     });
   }, [
     searchReinsurerID,
+    searchReinsurerName,
     searchTreatyID,
     searchStartDate,
     searchEndDate,
     columnFilters,
+    reinsurerData,
   ]);
 
   const handleColumnFilter = (column: string, value: string) => {
