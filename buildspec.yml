@@ -5,7 +5,6 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
-      - cd ReinsuranceAIUI
       - echo "Installing dependencies..."
       - npm ci --production=false
 
@@ -31,12 +30,12 @@ phases:
 artifacts:
   files:
     - "**/*"
-  base-directory: "ReinsuranceAIUI/dist"
+  base-directory: "dist"
 
 cache:
   paths:
-    - "ReinsuranceAIUI/node_modules/**/*"
-    - "ReinsuranceAIUI/.npm/**/*"
+    - "node_modules/**/*"
+    - ".npm/**/*"
 
 env:
   variables:
