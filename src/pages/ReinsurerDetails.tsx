@@ -170,61 +170,301 @@ const ReinsurerDetails = () => {
 
       {/* Main Content */}
       <main className="px-6 md:px-16 py-16">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Reinsurer Details
             </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600">
               Manage and view comprehensive information about your reinsurance
               partners
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Placeholder content for reinsurer details */}
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Reinsurer Information
+          {/* Search Filters */}
+          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+            <div className="flex items-center gap-2 mb-4">
+              <Search className="w-5 h-5 text-gray-600" />
+              <h3 className="text-lg font-semibold text-gray-900">
+                Search Filters
               </h3>
-              <p className="text-gray-600">
-                View detailed information about your reinsurance partners,
-                including contact details, coverage limits, and contract terms.
-              </p>
             </div>
 
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Coverage Analysis
-              </h3>
-              <p className="text-gray-600">
-                Analyze coverage patterns, utilization rates, and performance
-                metrics for each reinsurer relationship.
-              </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Reinsurer ID
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Search by Reinsurer ID"
+                  value={searchReinsurerID}
+                  onChange={(e) => setSearchReinsurerID(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Reinsurer Name
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Search by Reinsurer Name"
+                  value={searchReinsurerName}
+                  onChange={(e) => setSearchReinsurerName(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Period Start Date
+                </label>
+                <Input
+                  type="date"
+                  value={searchStartDate}
+                  onChange={(e) => setSearchStartDate(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Period End Date
+                </label>
+                <Input
+                  type="date"
+                  value={searchEndDate}
+                  onChange={(e) => setSearchEndDate(e.target.value)}
+                  className="w-full"
+                />
+              </div>
             </div>
 
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Contract Management
-              </h3>
-              <p className="text-gray-600">
-                Track contract renewal dates, terms, and conditions for all
-                reinsurance agreements.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">
-                Performance Metrics
-              </h3>
-              <p className="text-gray-600">
-                Monitor key performance indicators and financial metrics for
-                each reinsurer partnership.
-              </p>
+            <div className="mt-4 flex justify-end">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchReinsurerID("");
+                  setSearchReinsurerName("");
+                  setSearchStartDate("");
+                  setSearchEndDate("");
+                  setColumnFilters({});
+                }}
+                className="text-gray-600"
+              >
+                Clear All Filters
+              </Button>
             </div>
           </div>
 
-          <div className="text-center mt-12">
+          {/* Data Table */}
+          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+            <div className="p-4 border-b border-gray-200">
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-gray-900">
+                  Reinsurer Records ({filteredData.length})
+                </h3>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <Filter className="w-4 h-4" />
+                  Click column headers to filter
+                </div>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-gray-50">
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Reinsurer ID</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.reinsurerID || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("reinsurerID", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Reinsurer Name</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.reinsurerName || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("reinsurerName", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Treaty ID</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.treatyID || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("treatyID", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Quota Share</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.quotaShare || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("quotaShare", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Ceding Allowance</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.cedingAllowance || ""}
+                          onChange={(e) =>
+                            handleColumnFilter(
+                              "cedingAllowance",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Expense Allowance</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.expenseAllowance || ""}
+                          onChange={(e) =>
+                            handleColumnFilter(
+                              "expenseAllowance",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Ceding Allowance for Commissions</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.cedingAllowanceCommissions || ""}
+                          onChange={(e) =>
+                            handleColumnFilter(
+                              "cedingAllowanceCommissions",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Expense Allowance for Commissions</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={
+                            columnFilters.expenseAllowanceCommissions || ""
+                          }
+                          onChange={(e) =>
+                            handleColumnFilter(
+                              "expenseAllowanceCommissions",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Period Start Date</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.periodStartDate || ""}
+                          onChange={(e) =>
+                            handleColumnFilter(
+                              "periodStartDate",
+                              e.target.value,
+                            )
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Period End Date</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.periodEndDate || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("periodEndDate", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredData.map((item, index) => (
+                    <TableRow key={index} className="hover:bg-gray-50">
+                      <TableCell className="font-medium">
+                        {item.reinsurerID}
+                      </TableCell>
+                      <TableCell>{item.reinsurerName}</TableCell>
+                      <TableCell>{item.treatyID}</TableCell>
+                      <TableCell>{item.quotaShare}</TableCell>
+                      <TableCell>{item.cedingAllowance}</TableCell>
+                      <TableCell>{item.expenseAllowance}</TableCell>
+                      <TableCell>{item.cedingAllowanceCommissions}</TableCell>
+                      <TableCell>{item.expenseAllowanceCommissions}</TableCell>
+                      <TableCell>{item.periodStartDate}</TableCell>
+                      <TableCell>{item.periodEndDate}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+
+              {filteredData.length === 0 && (
+                <div className="text-center py-8 text-gray-500">
+                  No records found matching your search criteria.
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="text-center mt-8">
             <Button
               onClick={() => navigate("/")}
               className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
