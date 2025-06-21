@@ -40,11 +40,11 @@ interface ReinsurerData {
 // API fetch function
 const fetchReinsurerData = async (): Promise<ApiReinsurerData[]> => {
   const response = await fetch(
-    "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerLanding",
+    'https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerLanding'
   );
 
   if (!response.ok) {
-    throw new Error("Failed to fetch reinsurer data");
+    throw new Error('Failed to fetch reinsurer data');
   }
 
   return response.json();
@@ -52,15 +52,15 @@ const fetchReinsurerData = async (): Promise<ApiReinsurerData[]> => {
 
 // Transform API data to display format
 const transformApiData = (apiData: ApiReinsurerData[]): ReinsurerData[] => {
-  return apiData.map((item) => ({
+  return apiData.map(item => ({
     reinsurerID: item.REINSURER_ID.toString(),
     reinsurerName: item.REINSURER_NAME,
     treatyID: item.TREATY_ID.toString(),
     quotaShare: `${parseFloat(item.QUOTA_SHARE).toFixed(2)}%`,
     cedingAllowance: parseFloat(item.CEDEING_ALL_PREM).toFixed(4),
     expenseAllowance: parseFloat(item.EXPENSE_ALL_PREM).toFixed(4),
-    periodStartDate: new Date(item.PER_START_DATE).toISOString().split("T")[0],
-    periodEndDate: new Date(item.PER_END_DATE).toISOString().split("T")[0],
+    periodStartDate: new Date(item.PER_START_DATE).toISOString().split('T')[0],
+    periodEndDate: new Date(item.PER_END_DATE).toISOString().split('T')[0],
   }));
 };
 
@@ -68,12 +68,8 @@ const ReinsurerDetails = () => {
   const navigate = useNavigate();
 
   // Fetch data using React Query
-  const {
-    data: apiData,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["reinsurerData"],
+  const { data: apiData, isLoading, error } = useQuery({
+    queryKey: ['reinsurerData'],
     queryFn: fetchReinsurerData,
   });
 
@@ -191,6 +187,39 @@ const ReinsurerDetails = () => {
               partners
             </p>
           </div>
+
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex items-center justify-center py-16">
+              <div className="flex items-center gap-3 text-gray-600">
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span className="text-lg">Loading reinsurer data...</span>
+              </div>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+              <div className="flex items-center gap-2 text-red-800">
+                <h3 className="text-lg font-semibold">Error Loading Data</h3>
+              </div>
+              <p className="text-red-700 mt-2">
+                Failed to load reinsurer data. Please try refreshing the page.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => window.location.reload()}
+                className="mt-4 border-red-300 text-red-700 hover:bg-red-50"
+              >
+                Refresh Page
+              </Button>
+            </div>
+          )}
+
+          {/* Content - only show when data is loaded */}
+          {!isLoading && !error && (
+            <>
 
           {/* Search Filters */}
           <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
@@ -396,7 +425,9 @@ const ReinsurerDetails = () => {
                       </div>
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
-                      <div className="py-2">Actions</div>
+                      <div className="py-2">
+                        Actions
+                      </div>
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -417,9 +448,7 @@ const ReinsurerDetails = () => {
                           variant="outline"
                           size="sm"
                           onClick={() =>
-                            navigate(
-                              `/policy-transactions/${item.treatyID}?start=${item.periodStartDate}&end=${item.periodEndDate}&reinsurer=${item.reinsurerID}`,
-                            )
+                            navigate(`/policy-transactions/${item.treatyID}?start=${item.periodStartDate}&end=${item.periodEndDate}&reinsurer=${item.reinsurerID}`)
                           }
                           className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
                         >
