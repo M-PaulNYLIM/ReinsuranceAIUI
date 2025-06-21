@@ -162,6 +162,12 @@ const ReinsurerDetails = () => {
       ...prev,
       [column]: value,
     }));
+    setCurrentPage(1); // Reset to first page when filtering
+  };
+
+  const handleRowsPerPageChange = (newRowsPerPage: number) => {
+    setRowsPerPage(newRowsPerPage);
+    setCurrentPage(1); // Reset to first page when changing rows per page
   };
 
   return (
