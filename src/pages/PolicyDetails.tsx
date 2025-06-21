@@ -146,8 +146,7 @@ const PolicyDetails = () => {
 
   // Pagination calculations
   const totalPages = Math.ceil(filteredData.length / rowsPerPage);
-  const startRecord =
-    filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
+  const startRecord = filteredData.length === 0 ? 0 : (currentPage - 1) * rowsPerPage + 1;
   const endRecord = Math.min(currentPage * rowsPerPage, filteredData.length);
 
   const handleColumnFilter = (column: string, value: string) => {
@@ -301,9 +300,7 @@ const PolicyDetails = () => {
                     <span className="text-gray-600">Show:</span>
                     <Select
                       value={rowsPerPage.toString()}
-                      onValueChange={(value) =>
-                        handleRowsPerPageChange(Number(value))
-                      }
+                      onValueChange={(value) => handleRowsPerPageChange(Number(value))}
                     >
                       <SelectTrigger className="w-20 h-8">
                         <SelectValue />
@@ -448,18 +445,18 @@ const PolicyDetails = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredData.map((item, index) => (
+                  {paginatedData.map((item, index) => (
                     <TableRow key={index} className="hover:bg-gray-50">
-                      <TableCell className="font-medium">
+                      <TableCell className="font-medium w-32">
                         {item.policyNumber}
                       </TableCell>
-                      <TableCell>{item.policyholderName}</TableCell>
-                      <TableCell>{item.effectiveDate}</TableCell>
-                      <TableCell>{item.expirationDate}</TableCell>
-                      <TableCell className="font-medium">
+                      <TableCell className="w-64">{item.policyholderName}</TableCell>
+                      <TableCell className="w-32">{item.effectiveDate}</TableCell>
+                      <TableCell className="w-32">{item.expirationDate}</TableCell>
+                      <TableCell className="font-medium w-28">
                         {item.premium}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="w-24">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                             item.status === "Active"
@@ -474,11 +471,11 @@ const PolicyDetails = () => {
                           {item.status}
                         </span>
                       </TableCell>
-                      <TableCell>{item.lineOfBusiness}</TableCell>
-                      <TableCell className="font-medium">
+                      <TableCell className="w-48">{item.lineOfBusiness}</TableCell>
+                      <TableCell className="font-medium w-28">
                         {item.coverage}
                       </TableCell>
-                      <TableCell>
+                      <TableCell className="w-32">
                         <Button
                           variant="outline"
                           size="sm"
@@ -496,7 +493,6 @@ const PolicyDetails = () => {
                     </TableRow>
                   ))}
                 </TableBody>
-              </Table>
 
               {filteredData.length === 0 && (
                 <div className="text-center py-8 text-gray-500">
@@ -504,6 +500,64 @@ const PolicyDetails = () => {
                 </div>
               )}
             </div>
+
+            {/* Pagination Controls */}
+            {filteredData.length > 0 && (
+              <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200">
+                <div className="text-sm text-gray-600">
+                  Showing {startRecord} to {endRecord} of {filteredData.length} results
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                    disabled={currentPage === 1}
+                    className="text-sm"
+                  >
+                    Previous
+                  </Button>
+
+                  <div className="flex items-center gap-1">
+                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                      let pageNumber;
+                      if (totalPages <= 5) {
+                        pageNumber = i + 1;
+                      } else if (currentPage <= 3) {
+                        pageNumber = i + 1;
+                      } else if (currentPage >= totalPages - 2) {
+                        pageNumber = totalPages - 4 + i;
+                      } else {
+                        pageNumber = currentPage - 2 + i;
+                      }
+
+                      return (
+                        <Button
+                          key={pageNumber}
+                          variant={currentPage === pageNumber ? "default" : "outline"}
+                          size="sm"
+                          onClick={() => setCurrentPage(pageNumber)}
+                          className="w-8 h-8 text-sm"
+                        >
+                          {pageNumber}
+                        </Button>
+                      );
+                    })}
+                  </div>
+
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                    disabled={currentPage === totalPages}
+                    className="text-sm"
+                  >
+                    Next
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
           </div>
 
           <div className="text-center mt-8">
