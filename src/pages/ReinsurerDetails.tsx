@@ -574,6 +574,75 @@ const ReinsurerDetails = () => {
                     </div>
                   )}
                 </div>
+
+                {/* Pagination Controls */}
+                {filteredData.length > 0 && (
+                  <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200">
+                    <div className="text-sm text-gray-600">
+                      Showing {startRecord} to {endRecord} of{" "}
+                      {filteredData.length} results
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          setCurrentPage(Math.max(1, currentPage - 1))
+                        }
+                        disabled={currentPage === 1}
+                        className="text-sm"
+                      >
+                        Previous
+                      </Button>
+
+                      <div className="flex items-center gap-1">
+                        {Array.from(
+                          { length: Math.min(5, totalPages) },
+                          (_, i) => {
+                            let pageNumber;
+                            if (totalPages <= 5) {
+                              pageNumber = i + 1;
+                            } else if (currentPage <= 3) {
+                              pageNumber = i + 1;
+                            } else if (currentPage >= totalPages - 2) {
+                              pageNumber = totalPages - 4 + i;
+                            } else {
+                              pageNumber = currentPage - 2 + i;
+                            }
+
+                            return (
+                              <Button
+                                key={pageNumber}
+                                variant={
+                                  currentPage === pageNumber
+                                    ? "default"
+                                    : "outline"
+                                }
+                                size="sm"
+                                onClick={() => setCurrentPage(pageNumber)}
+                                className="w-8 h-8 text-sm"
+                              >
+                                {pageNumber}
+                              </Button>
+                            );
+                          },
+                        )}
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          setCurrentPage(Math.min(totalPages, currentPage + 1))
+                        }
+                        disabled={currentPage === totalPages}
+                        className="text-sm"
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="text-center mt-8">
