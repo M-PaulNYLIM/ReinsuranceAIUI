@@ -67,8 +67,25 @@ const transformApiData = (apiData: ApiReinsurerData[]): ReinsurerData[] => {
 const ReinsurerDetails = () => {
   const navigate = useNavigate();
 
+  // Fetch data using React Query
+  const {
+    data: apiData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["reinsurerData"],
+    queryFn: fetchReinsurerData,
+  });
+
+  // Transform API data
+  const reinsurerData = useMemo(() => {
+    if (!apiData) return [];
+    return transformApiData(apiData);
+  }, [apiData]);
+
   // Search states
   const [searchReinsurerID, setSearchReinsurerID] = useState("");
+  const [searchReinsurerName, setSearchReinsurerName] = useState("");
   const [searchTreatyID, setSearchTreatyID] = useState("");
   const [searchStartDate, setSearchStartDate] = useState("");
   const [searchEndDate, setSearchEndDate] = useState("");
