@@ -12,8 +12,129 @@ import {
 import { ArrowLeft, Search, Filter } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+// Sample data - in a real app this would come from an API
+const sampleData = [
+  {
+    reinsurerID: "RE001",
+    reinsurerName: "Global Re Insurance",
+    treatyID: "TR2024001",
+    quotaShare: "25%",
+    cedingAllowance: "15%",
+    expenseAllowance: "10%",
+    cedingAllowanceCommissions: "12%",
+    expenseAllowanceCommissions: "8%",
+    periodStartDate: "2024-01-01",
+    periodEndDate: "2024-12-31",
+  },
+  {
+    reinsurerID: "RE002",
+    reinsurerName: "Atlantic Reinsurance",
+    treatyID: "TR2024002",
+    quotaShare: "30%",
+    cedingAllowance: "18%",
+    expenseAllowance: "12%",
+    cedingAllowanceCommissions: "14%",
+    expenseAllowanceCommissions: "9%",
+    periodStartDate: "2024-01-15",
+    periodEndDate: "2024-12-31",
+  },
+  {
+    reinsurerID: "RE003",
+    reinsurerName: "Pacific Re Holdings",
+    treatyID: "TR2024003",
+    quotaShare: "20%",
+    cedingAllowance: "16%",
+    expenseAllowance: "11%",
+    cedingAllowanceCommissions: "13%",
+    expenseAllowanceCommissions: "7%",
+    periodStartDate: "2024-02-01",
+    periodEndDate: "2024-12-31",
+  },
+  {
+    reinsurerID: "RE004",
+    reinsurerName: "European Reinsurance Group",
+    treatyID: "TR2024004",
+    quotaShare: "35%",
+    cedingAllowance: "20%",
+    expenseAllowance: "13%",
+    cedingAllowanceCommissions: "15%",
+    expenseAllowanceCommissions: "10%",
+    periodStartDate: "2024-01-01",
+    periodEndDate: "2024-12-31",
+  },
+  {
+    reinsurerID: "RE005",
+    reinsurerName: "Asian Re Solutions",
+    treatyID: "TR2024005",
+    quotaShare: "22%",
+    cedingAllowance: "17%",
+    expenseAllowance: "9%",
+    cedingAllowanceCommissions: "11%",
+    expenseAllowanceCommissions: "6%",
+    periodStartDate: "2024-03-01",
+    periodEndDate: "2024-12-31",
+  },
+];
+
 const ReinsurerDetails = () => {
   const navigate = useNavigate();
+
+  // Search states
+  const [searchReinsurerID, setSearchReinsurerID] = useState("");
+  const [searchReinsurerName, setSearchReinsurerName] = useState("");
+  const [searchStartDate, setSearchStartDate] = useState("");
+  const [searchEndDate, setSearchEndDate] = useState("");
+
+  // Column filter states
+  const [columnFilters, setColumnFilters] = useState<{ [key: string]: string }>(
+    {},
+  );
+
+  // Filtered data based on search criteria
+  const filteredData = useMemo(() => {
+    return sampleData.filter((item) => {
+      const matchesReinsurerID = item.reinsurerID
+        .toLowerCase()
+        .includes(searchReinsurerID.toLowerCase());
+      const matchesReinsurerName = item.reinsurerName
+        .toLowerCase()
+        .includes(searchReinsurerName.toLowerCase());
+      const matchesStartDate =
+        !searchStartDate || item.periodStartDate >= searchStartDate;
+      const matchesEndDate =
+        !searchEndDate || item.periodEndDate <= searchEndDate;
+
+      // Apply column filters
+      const matchesColumnFilters = Object.entries(columnFilters).every(
+        ([column, filter]) => {
+          if (!filter) return true;
+          const value = item[column as keyof typeof item];
+          return value.toLowerCase().includes(filter.toLowerCase());
+        },
+      );
+
+      return (
+        matchesReinsurerID &&
+        matchesReinsurerName &&
+        matchesStartDate &&
+        matchesEndDate &&
+        matchesColumnFilters
+      );
+    });
+  }, [
+    searchReinsurerID,
+    searchReinsurerName,
+    searchStartDate,
+    searchEndDate,
+    columnFilters,
+  ]);
+
+  const handleColumnFilter = (column: string, value: string) => {
+    setColumnFilters((prev) => ({
+      ...prev,
+      [column]: value,
+    }));
+  };
 
   return (
     <div className="min-h-screen bg-white">
