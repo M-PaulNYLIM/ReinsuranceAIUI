@@ -68,9 +68,7 @@ const transformApiData = (apiData: ApiPolicyData[]): PolicyData[] => {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`,
-    applicationSignDate: new Date(item.RRCF_DATE_ADDED)
-      .toISOString()
-      .split("T")[0],
+    applicationSignDate: new Date(item.RRCF_DATE_ADDED).toISOString().split("T")[0],
     status: getRandomStatus(),
   }));
 };
@@ -217,10 +215,43 @@ const PolicyDetails = () => {
               Policy Details
             </h1>
             <p className="text-xl text-gray-600">
-              Manage and view comprehensive reinsurance information about your
-              insurance policies
+              Manage and view comprehensive reinsurance information about
+              your insurance policies
             </p>
           </div>
+
+          {/* Loading State */}
+          {isLoading && (
+            <div className="flex items-center justify-center py-16">
+              <div className="flex items-center gap-3 text-gray-600">
+                <Loader2 className="w-6 h-6 animate-spin" />
+                <span className="text-lg">Loading policy data...</span>
+              </div>
+            </div>
+          )}
+
+          {/* Error State */}
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+              <div className="flex items-center gap-2 text-red-800">
+                <h3 className="text-lg font-semibold">Error Loading Data</h3>
+              </div>
+              <p className="text-red-700 mt-2">
+                Failed to load policy data. Please try refreshing the page.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => window.location.reload()}
+                className="mt-4 border-red-300 text-red-700 hover:bg-red-50"
+              >
+                Refresh Page
+              </Button>
+            </div>
+          )}
+
+          {/* Content - only show when data is loaded */}
+          {!isLoading && !error && (
+            <>
 
           {/* Search Filters */}
           <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
@@ -407,10 +438,7 @@ const PolicyDetails = () => {
                           className="h-8 text-xs"
                           value={columnFilters.applicationSignDate || ""}
                           onChange={(e) =>
-                            handleColumnFilter(
-                              "applicationSignDate",
-                              e.target.value,
-                            )
+                            handleColumnFilter("applicationSignDate", e.target.value)
                           }
                         />
                       </div>
@@ -440,8 +468,12 @@ const PolicyDetails = () => {
                       <TableCell className="font-medium w-32">
                         {item.policyNumber}
                       </TableCell>
-                      <TableCell className="w-48">{item.productName}</TableCell>
-                      <TableCell className="w-48">{item.firmName}</TableCell>
+                      <TableCell className="w-48">
+                        {item.productName}
+                      </TableCell>
+                      <TableCell className="w-48">
+                        {item.firmName}
+                      </TableCell>
                       <TableCell className="font-medium w-32">
                         {item.accountValue}
                       </TableCell>
