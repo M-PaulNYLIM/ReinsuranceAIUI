@@ -204,16 +204,38 @@ const PolicyTransactionDetails = () => {
               Policy Transaction Details
             </h1>
             <div className="text-xl text-gray-600 space-y-2">
-              <p>
-                Treaty ID:{" "}
-                <span className="font-semibold text-gray-900">{treatyID}</span>
-              </p>
-              <p>
-                Reinsurer ID:{" "}
-                <span className="font-semibold text-gray-900">
-                  {reinsurerID}
-                </span>
-              </p>
+              {policyNumber && (
+                <p>
+                  Policy Number:{" "}
+                  <span className="font-semibold text-gray-900">
+                    {policyNumber}
+                  </span>
+                </p>
+              )}
+              {treatyID && (
+                <p>
+                  Treaty ID:{" "}
+                  <span className="font-semibold text-gray-900">
+                    {treatyID}
+                  </span>
+                </p>
+              )}
+              {reinsurerID && (
+                <p>
+                  Reinsurer ID:{" "}
+                  <span className="font-semibold text-gray-900">
+                    {reinsurerID}
+                  </span>
+                </p>
+              )}
+              {policyParam && (
+                <p>
+                  Policy:{" "}
+                  <span className="font-semibold text-gray-900">
+                    {policyParam}
+                  </span>
+                </p>
+              )}
               <p>
                 Period:{" "}
                 <span className="font-semibold text-gray-900">
