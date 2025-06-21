@@ -104,6 +104,7 @@ const Index = () => {
             <Button
               size="lg"
               className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900 px-6 py-3"
+              onClick={() => navigate("/policy-details")}
             >
               Policy Details
             </Button>
