@@ -9,88 +9,65 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowLeft, Search, Filter } from "lucide-react";
+import { ArrowLeft, Search, Filter, FileText, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Sample policy data - in a real app this would come from an API
-const sampleData = [
+const samplePolicyData = [
   {
-    policyID: "POL001",
-    policyNumber: "INS-2024-001",
-    insuredName: "TechCorp Industries",
-    productLine: "Property Insurance",
-    policyStatus: "Active",
-    premiumAmount: "$125,000",
-    sumInsured: "$5,000,000",
+    policyNumber: "POL-2024-001",
+    policyholderName: "ABC Manufacturing Corp",
     effectiveDate: "2024-01-01",
-    expiryDate: "2024-12-31",
-    reinsurerID: "RE001",
-    quotaShare: "25%",
+    expirationDate: "2024-12-31",
+    premium: "$45,000.00",
+    status: "Active",
+    lineOfBusiness: "Commercial Property",
+    coverage: "$2,500,000",
+    deductible: "$5,000",
   },
   {
-    policyID: "POL002",
-    policyNumber: "INS-2024-002",
-    insuredName: "Maritime Solutions Ltd",
-    productLine: "Marine Insurance",
-    policyStatus: "Active",
-    premiumAmount: "$85,000",
-    sumInsured: "$3,200,000",
-    effectiveDate: "2024-01-15",
-    expiryDate: "2024-12-31",
-    reinsurerID: "RE002",
-    quotaShare: "30%",
+    policyNumber: "POL-2024-002",
+    policyholderName: "XYZ Construction LLC",
+    effectiveDate: "2024-02-15",
+    expirationDate: "2025-02-14",
+    premium: "$32,000.00",
+    status: "Active",
+    lineOfBusiness: "General Liability",
+    coverage: "$1,000,000",
+    deductible: "$2,500",
   },
   {
-    policyID: "POL003",
-    policyNumber: "INS-2024-003",
-    insuredName: "Global Manufacturing Co",
-    productLine: "Liability Insurance",
-    policyStatus: "Pending",
-    premiumAmount: "$95,000",
-    sumInsured: "$2,800,000",
-    effectiveDate: "2024-02-01",
-    expiryDate: "2024-12-31",
-    reinsurerID: "RE003",
-    quotaShare: "20%",
-  },
-  {
-    policyID: "POL004",
-    policyNumber: "INS-2024-004",
-    insuredName: "Healthcare Systems Inc",
-    productLine: "Professional Indemnity",
-    policyStatus: "Active",
-    premiumAmount: "$150,000",
-    sumInsured: "$7,500,000",
+    policyNumber: "POL-2024-003",
+    policyholderName: "Global Logistics Inc",
     effectiveDate: "2024-01-01",
-    expiryDate: "2024-12-31",
-    reinsurerID: "RE004",
-    quotaShare: "35%",
+    expirationDate: "2024-12-31",
+    premium: "$28,500.00",
+    status: "Cancelled",
+    lineOfBusiness: "Commercial Auto",
+    coverage: "$750,000",
+    deductible: "$1,000",
   },
   {
-    policyID: "POL005",
-    policyNumber: "INS-2024-005",
-    insuredName: "Energy Solutions Ltd",
-    productLine: "Engineering Insurance",
-    policyStatus: "Active",
-    premiumAmount: "$110,000",
-    sumInsured: "$4,200,000",
+    policyNumber: "POL-2024-004",
+    policyholderName: "Tech Solutions Ltd",
     effectiveDate: "2024-03-01",
-    expiryDate: "2024-12-31",
-    reinsurerID: "RE005",
-    quotaShare: "22%",
+    expirationDate: "2025-02-28",
+    premium: "$55,000.00",
+    status: "Active",
+    lineOfBusiness: "Professional Liability",
+    coverage: "$5,000,000",
+    deductible: "$10,000",
   },
   {
-    policyID: "POL006",
-    policyNumber: "INS-2024-006",
-    insuredName: "Retail Chain Group",
-    productLine: "Commercial Property",
-    policyStatus: "Expired",
-    premiumAmount: "$75,000",
-    sumInsured: "$2,100,000",
-    effectiveDate: "2023-01-01",
-    expiryDate: "2023-12-31",
-    reinsurerID: "RE001",
-    quotaShare: "25%",
+    policyNumber: "POL-2024-005",
+    policyholderName: "Healthcare Partners",
+    effectiveDate: "2024-01-15",
+    expirationDate: "2024-12-31",
+    premium: "$72,000.00",
+    status: "Active",
+    lineOfBusiness: "Medical Malpractice",
+    coverage: "$3,000,000",
+    deductible: "$25,000",
   },
 ];
 
@@ -98,10 +75,10 @@ const PolicyDetails = () => {
   const navigate = useNavigate();
 
   // Search states
-  const [searchPolicyID, setSearchPolicyID] = useState("");
-  const [searchInsuredName, setSearchInsuredName] = useState("");
-  const [searchEffectiveDate, setSearchEffectiveDate] = useState("");
-  const [searchExpiryDate, setSearchExpiryDate] = useState("");
+  const [searchPolicyNumber, setSearchPolicyNumber] = useState("");
+  const [searchPolicyholderName, setSearchPolicyholderName] = useState("");
+  const [searchStatus, setSearchStatus] = useState("");
+  const [searchLineOfBusiness, setSearchLineOfBusiness] = useState("");
 
   // Column filter states
   const [columnFilters, setColumnFilters] = useState<{ [key: string]: string }>(
@@ -110,17 +87,19 @@ const PolicyDetails = () => {
 
   // Filtered data based on search criteria
   const filteredData = useMemo(() => {
-    return sampleData.filter((item) => {
-      const matchesPolicyID = item.policyID
+    return samplePolicyData.filter((item) => {
+      const matchesPolicyNumber = item.policyNumber
         .toLowerCase()
-        .includes(searchPolicyID.toLowerCase());
-      const matchesInsuredName = item.insuredName
+        .includes(searchPolicyNumber.toLowerCase());
+      const matchesPolicyholderName = item.policyholderName
         .toLowerCase()
-        .includes(searchInsuredName.toLowerCase());
-      const matchesEffectiveDate =
-        !searchEffectiveDate || item.effectiveDate >= searchEffectiveDate;
-      const matchesExpiryDate =
-        !searchExpiryDate || item.expiryDate <= searchExpiryDate;
+        .includes(searchPolicyholderName.toLowerCase());
+      const matchesStatus = item.status
+        .toLowerCase()
+        .includes(searchStatus.toLowerCase());
+      const matchesLineOfBusiness = item.lineOfBusiness
+        .toLowerCase()
+        .includes(searchLineOfBusiness.toLowerCase());
 
       // Apply column filters
       const matchesColumnFilters = Object.entries(columnFilters).every(
@@ -132,18 +111,18 @@ const PolicyDetails = () => {
       );
 
       return (
-        matchesPolicyID &&
-        matchesInsuredName &&
-        matchesEffectiveDate &&
-        matchesExpiryDate &&
+        matchesPolicyNumber &&
+        matchesPolicyholderName &&
+        matchesStatus &&
+        matchesLineOfBusiness &&
         matchesColumnFilters
       );
     });
   }, [
-    searchPolicyID,
-    searchInsuredName,
-    searchEffectiveDate,
-    searchExpiryDate,
+    searchPolicyNumber,
+    searchPolicyholderName,
+    searchStatus,
+    searchLineOfBusiness,
     columnFilters,
   ]);
 
@@ -195,7 +174,7 @@ const PolicyDetails = () => {
             </h1>
             <p className="text-xl text-gray-600">
               Manage and view comprehensive information about your insurance
-              policies and their reinsurance coverage
+              policies
             </p>
           </div>
 
@@ -211,50 +190,52 @@ const PolicyDetails = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Policy ID
+                  Policy Number
                 </label>
                 <Input
                   type="text"
-                  placeholder="Search by Policy ID"
-                  value={searchPolicyID}
-                  onChange={(e) => setSearchPolicyID(e.target.value)}
+                  placeholder="Search by Policy Number"
+                  value={searchPolicyNumber}
+                  onChange={(e) => setSearchPolicyNumber(e.target.value)}
                   className="w-full"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Insured Name
+                  Policyholder Name
                 </label>
                 <Input
                   type="text"
-                  placeholder="Search by Insured Name"
-                  value={searchInsuredName}
-                  onChange={(e) => setSearchInsuredName(e.target.value)}
+                  placeholder="Search by Policyholder Name"
+                  value={searchPolicyholderName}
+                  onChange={(e) => setSearchPolicyholderName(e.target.value)}
                   className="w-full"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Effective Date
+                  Status
                 </label>
                 <Input
-                  type="date"
-                  value={searchEffectiveDate}
-                  onChange={(e) => setSearchEffectiveDate(e.target.value)}
+                  type="text"
+                  placeholder="Search by Status"
+                  value={searchStatus}
+                  onChange={(e) => setSearchStatus(e.target.value)}
                   className="w-full"
                 />
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Expiry Date
+                  Line of Business
                 </label>
                 <Input
-                  type="date"
-                  value={searchExpiryDate}
-                  onChange={(e) => setSearchExpiryDate(e.target.value)}
+                  type="text"
+                  placeholder="Search by Line of Business"
+                  value={searchLineOfBusiness}
+                  onChange={(e) => setSearchLineOfBusiness(e.target.value)}
                   className="w-full"
                 />
               </div>
@@ -264,10 +245,10 @@ const PolicyDetails = () => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  setSearchPolicyID("");
-                  setSearchInsuredName("");
-                  setSearchEffectiveDate("");
-                  setSearchExpiryDate("");
+                  setSearchPolicyNumber("");
+                  setSearchPolicyholderName("");
+                  setSearchStatus("");
+                  setSearchLineOfBusiness("");
                   setColumnFilters({});
                 }}
                 className="text-gray-600"
@@ -297,20 +278,6 @@ const PolicyDetails = () => {
                   <TableRow className="bg-gray-50">
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Policy ID</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.policyID || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("policyID", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
                         <div>Policy Number</div>
                         <Input
                           type="text"
@@ -325,70 +292,17 @@ const PolicyDetails = () => {
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Insured Name</div>
+                        <div>Policyholder Name</div>
                         <Input
                           type="text"
                           placeholder="Filter..."
                           className="h-8 text-xs"
-                          value={columnFilters.insuredName || ""}
+                          value={columnFilters.policyholderName || ""}
                           onChange={(e) =>
-                            handleColumnFilter("insuredName", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
-                        <div>Product Line</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.productLine || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("productLine", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
-                        <div>Policy Status</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.policyStatus || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("policyStatus", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
-                        <div>Premium Amount</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.premiumAmount || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("premiumAmount", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
-                        <div>Sum Insured</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.sumInsured || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("sumInsured", e.target.value)
+                            handleColumnFilter(
+                              "policyholderName",
+                              e.target.value,
+                            )
                           }
                         />
                       </div>
@@ -409,45 +323,76 @@ const PolicyDetails = () => {
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Expiry Date</div>
+                        <div>Expiration Date</div>
                         <Input
                           type="text"
                           placeholder="Filter..."
                           className="h-8 text-xs"
-                          value={columnFilters.expiryDate || ""}
+                          value={columnFilters.expirationDate || ""}
                           onChange={(e) =>
-                            handleColumnFilter("expiryDate", e.target.value)
+                            handleColumnFilter("expirationDate", e.target.value)
                           }
                         />
                       </div>
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Reinsurer ID</div>
+                        <div>Premium</div>
                         <Input
                           type="text"
                           placeholder="Filter..."
                           className="h-8 text-xs"
-                          value={columnFilters.reinsurerID || ""}
+                          value={columnFilters.premium || ""}
                           onChange={(e) =>
-                            handleColumnFilter("reinsurerID", e.target.value)
+                            handleColumnFilter("premium", e.target.value)
                           }
                         />
                       </div>
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Quota Share</div>
+                        <div>Status</div>
                         <Input
                           type="text"
                           placeholder="Filter..."
                           className="h-8 text-xs"
-                          value={columnFilters.quotaShare || ""}
+                          value={columnFilters.status || ""}
                           onChange={(e) =>
-                            handleColumnFilter("quotaShare", e.target.value)
+                            handleColumnFilter("status", e.target.value)
                           }
                         />
                       </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Line of Business</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.lineOfBusiness || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("lineOfBusiness", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="space-y-2">
+                        <div>Coverage</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.coverage || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("coverage", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="py-2">Actions</div>
                     </TableHead>
                   </TableRow>
                 </TableHeader>
@@ -455,30 +400,46 @@ const PolicyDetails = () => {
                   {filteredData.map((item, index) => (
                     <TableRow key={index} className="hover:bg-gray-50">
                       <TableCell className="font-medium">
-                        {item.policyID}
+                        {item.policyNumber}
                       </TableCell>
-                      <TableCell>{item.policyNumber}</TableCell>
-                      <TableCell>{item.insuredName}</TableCell>
-                      <TableCell>{item.productLine}</TableCell>
+                      <TableCell>{item.policyholderName}</TableCell>
+                      <TableCell>{item.effectiveDate}</TableCell>
+                      <TableCell>{item.expirationDate}</TableCell>
+                      <TableCell className="font-medium">
+                        {item.premium}
+                      </TableCell>
                       <TableCell>
                         <span
-                          className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            item.policyStatus === "Active"
+                          className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                            item.status === "Active"
                               ? "bg-green-100 text-green-800"
-                              : item.policyStatus === "Pending"
-                                ? "bg-yellow-100 text-yellow-800"
-                                : "bg-red-100 text-red-800"
+                              : item.status === "Cancelled"
+                                ? "bg-red-100 text-red-800"
+                                : item.status === "Expired"
+                                  ? "bg-gray-100 text-gray-800"
+                                  : "bg-yellow-100 text-yellow-800"
                           }`}
                         >
-                          {item.policyStatus}
+                          {item.status}
                         </span>
                       </TableCell>
-                      <TableCell>{item.premiumAmount}</TableCell>
-                      <TableCell>{item.sumInsured}</TableCell>
-                      <TableCell>{item.effectiveDate}</TableCell>
-                      <TableCell>{item.expiryDate}</TableCell>
-                      <TableCell>{item.reinsurerID}</TableCell>
-                      <TableCell>{item.quotaShare}</TableCell>
+                      <TableCell>{item.lineOfBusiness}</TableCell>
+                      <TableCell className="font-medium">
+                        {item.coverage}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            navigate(`/policy-details/${item.policyNumber}`)
+                          }
+                          className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                        >
+                          <FileText className="w-4 h-4" />
+                          View Policy
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -486,7 +447,7 @@ const PolicyDetails = () => {
 
               {filteredData.length === 0 && (
                 <div className="text-center py-8 text-gray-500">
-                  No records found matching your search criteria.
+                  No policies found matching your search criteria.
                 </div>
               )}
             </div>
