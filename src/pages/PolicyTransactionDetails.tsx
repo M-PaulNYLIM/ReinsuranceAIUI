@@ -643,16 +643,10 @@ const PolicyTransactionDetails = () => {
 
           <div className="text-center mt-8">
             <Button
-              onClick={() =>
-                navigate(
-                  policyNumber ? "/policy-details" : "/reinsurer-details",
-                )
-              }
+              onClick={() => navigate("/policy-details")}
               className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
             >
-              {policyNumber
-                ? "Return to Policy Details"
-                : "Return to Reinsurer Details"}
+              Return to Policy Details
             </Button>
           </div>
         </div>
