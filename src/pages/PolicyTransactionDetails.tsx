@@ -172,11 +172,15 @@ const PolicyTransactionDetails = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate("/reinsurer-details")}
+            onClick={() =>
+              navigate(policyNumber ? "/policy-details" : "/reinsurer-details")
+            }
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Reinsurer Details
+            {policyNumber
+              ? "Back to Policy Details"
+              : "Back to Reinsurer Details"}
           </Button>
         </div>
         <div className="flex items-center gap-3">
