@@ -78,6 +78,22 @@ const transformApiData = (apiData: ApiPolicyData[]): PolicyData[] => {
 const PolicyDetails = () => {
   const navigate = useNavigate();
 
+  // Fetch data using React Query
+  const {
+    data: apiData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["policyData"],
+    queryFn: fetchPolicyData,
+  });
+
+  // Transform API data
+  const policyData = useMemo(() => {
+    if (!apiData) return [];
+    return transformApiData(apiData);
+  }, [apiData]);
+
   // Search states
   const [searchPolicyNumber, setSearchPolicyNumber] = useState("");
   const [searchProductName, setSearchProductName] = useState("");
