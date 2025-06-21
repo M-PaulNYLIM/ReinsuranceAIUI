@@ -386,7 +386,7 @@ const PolicyTransactionDetails = () => {
               <Table>
                 <TableHeader>
                   <TableRow className="bg-gray-50">
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="space-y-2">
                         <div>Policy Number</div>
                         <Input
@@ -400,7 +400,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-28">
                       <div className="space-y-2">
                         <div>Transaction ID</div>
                         <Input
@@ -414,7 +414,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-36">
                       <div className="space-y-2">
                         <div>Transaction Type</div>
                         <Input
@@ -431,12 +431,11 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="space-y-2">
                         <div>Transaction Date</div>
                         <Input
-                          type="text"
-                          placeholder="Filter..."
+                          type="date"
                           className="h-8 text-xs"
                           value={columnFilters.transactionDate || ""}
                           onChange={(e) =>
@@ -448,7 +447,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-48">
                       <div className="space-y-2">
                         <div>Insured Name</div>
                         <Input
@@ -462,7 +461,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-28">
                       <div className="space-y-2">
                         <div>Premium</div>
                         <Input
@@ -476,7 +475,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-36">
                       <div className="space-y-2">
                         <div>Quota Share Premium</div>
                         <Input
@@ -493,7 +492,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-32">
                       <div className="space-y-2">
                         <div>Ceding Commission</div>
                         <Input
@@ -510,7 +509,7 @@ const PolicyTransactionDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
+                    <TableHead className="font-semibold text-gray-900 w-28">
                       <div className="space-y-2">
                         <div>Net Premium</div>
                         <Input
@@ -527,7 +526,7 @@ const PolicyTransactionDetails = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredData.map((transaction, index) => (
+                  {paginatedData.map((transaction, index) => (
                     <TableRow key={index} className="hover:bg-gray-50">
                       <TableCell className="font-medium">
                         {transaction.policyNumber}
