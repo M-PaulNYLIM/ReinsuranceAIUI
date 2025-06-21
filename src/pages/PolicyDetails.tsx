@@ -280,6 +280,7 @@ const PolicyDetails = () => {
                   setSearchStatus("");
                   setSearchLineOfBusiness("");
                   setColumnFilters({});
+                  setCurrentPage(1);
                 }}
                 className="text-gray-600"
               >
