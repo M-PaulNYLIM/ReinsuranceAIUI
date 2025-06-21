@@ -26,10 +26,12 @@ const Index = () => {
       {/* Header */}
       <header className="flex items-center justify-between px-8 py-8 border-b border-gray-200 bg-white">
         <div className="flex items-center gap-6">
-          {/* Logo placeholder - using a simple rectangular shape */}
-          <div className="w-10 h-9 bg-gray-800 rounded flex items-center justify-center">
-            <span className="text-white text-xs font-bold">R</span>
-          </div>
+          {/* RECAP Branded Logo */}
+          <img
+            src="https://cdn.builder.io/api/v1/assets/355436a8ffc842c098645b5de5188677/chatgpt-image-jun-20-2025-07_18_36-pm-be90f6?format=webp&width=800"
+            alt="RECAP - Reinsurance Engine for Calculations, Administration & Processing"
+            className="h-9 w-auto"
+          />
         </div>
 
         {/* Navigation */}
