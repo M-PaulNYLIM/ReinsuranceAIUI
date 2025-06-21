@@ -9,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ArrowLeft, Search, Filter } from "lucide-react";
+import { ArrowLeft, Search, Filter, Eye } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 // Sample data - in a real app this would come from an API
