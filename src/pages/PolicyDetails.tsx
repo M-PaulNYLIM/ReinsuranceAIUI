@@ -16,8 +16,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Search, Filter, Eye } from "lucide-react";
+import { ArrowLeft, Search, Filter, Eye, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 // Sample policy data - in a real app this would come from an API
 const samplePolicyData = [
