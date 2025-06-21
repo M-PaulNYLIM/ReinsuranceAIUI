@@ -34,7 +34,7 @@ phases:
 artifacts:
   files:
     - "**/*"
-  base-directory: "dist"
+  base-directory: "ReinsuranceAIUI/dist"
 
 cache:
   paths:
