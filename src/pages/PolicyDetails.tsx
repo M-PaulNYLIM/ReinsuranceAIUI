@@ -242,13 +242,26 @@ const PolicyDetails = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Policyholder Name
+                  Product Name
                 </label>
                 <Input
                   type="text"
-                  placeholder="Search by Policyholder Name"
-                  value={searchPolicyholderName}
-                  onChange={(e) => setSearchPolicyholderName(e.target.value)}
+                  placeholder="Search by Product Name"
+                  value={searchProductName}
+                  onChange={(e) => setSearchProductName(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Firm Name
+                </label>
+                <Input
+                  type="text"
+                  placeholder="Search by Firm Name"
+                  value={searchFirmName}
+                  onChange={(e) => setSearchFirmName(e.target.value)}
                   className="w-full"
                 />
               </div>
@@ -265,19 +278,6 @@ const PolicyDetails = () => {
                   className="w-full"
                 />
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Line of Business
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Search by Line of Business"
-                  value={searchLineOfBusiness}
-                  onChange={(e) => setSearchLineOfBusiness(e.target.value)}
-                  className="w-full"
-                />
-              </div>
             </div>
 
             <div className="mt-4 flex justify-end">
@@ -285,9 +285,9 @@ const PolicyDetails = () => {
                 variant="outline"
                 onClick={() => {
                   setSearchPolicyNumber("");
-                  setSearchPolicyholderName("");
+                  setSearchProductName("");
+                  setSearchFirmName("");
                   setSearchStatus("");
-                  setSearchLineOfBusiness("");
                   setColumnFilters({});
                   setCurrentPage(1);
                 }}
