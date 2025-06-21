@@ -92,9 +92,9 @@ const PolicyDetails = () => {
 
   // Search states
   const [searchPolicyNumber, setSearchPolicyNumber] = useState("");
-  const [searchPolicyholderName, setSearchPolicyholderName] = useState("");
+  const [searchProductName, setSearchProductName] = useState("");
+  const [searchFirmName, setSearchFirmName] = useState("");
   const [searchStatus, setSearchStatus] = useState("");
-  const [searchLineOfBusiness, setSearchLineOfBusiness] = useState("");
 
   // Column filter states
   const [columnFilters, setColumnFilters] = useState<{ [key: string]: string }>(
