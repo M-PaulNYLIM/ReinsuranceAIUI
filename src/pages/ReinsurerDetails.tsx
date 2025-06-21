@@ -95,6 +95,10 @@ const ReinsurerDetails = () => {
     {},
   );
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
+
   // Filtered data based on search criteria
   const filteredData = useMemo(() => {
     return reinsurerData.filter((item) => {
