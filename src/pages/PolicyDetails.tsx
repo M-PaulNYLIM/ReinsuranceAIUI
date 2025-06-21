@@ -148,6 +148,7 @@ const PolicyDetails = () => {
     searchFirmName,
     searchStatus,
     columnFilters,
+    policyData,
   ]);
 
   // Paginated data
