@@ -352,59 +352,60 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-64">
+                    <TableHead className="font-semibold text-gray-900 w-48">
                       <div className="space-y-2">
-                        <div>Policyholder Name</div>
+                        <div>Product Name</div>
                         <Input
                           type="text"
                           placeholder="Filter..."
                           className="h-8 text-xs"
-                          value={columnFilters.policyholderName || ""}
+                          value={columnFilters.productName || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("productName", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900 w-48">
+                      <div className="space-y-2">
+                        <div>Firm Name</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.firmName || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("firmName", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900 w-32">
+                      <div className="space-y-2">
+                        <div>Account Value</div>
+                        <Input
+                          type="text"
+                          placeholder="Filter..."
+                          className="h-8 text-xs"
+                          value={columnFilters.accountValue || ""}
+                          onChange={(e) =>
+                            handleColumnFilter("accountValue", e.target.value)
+                          }
+                        />
+                      </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900 w-36">
+                      <div className="space-y-2">
+                        <div>Application Sign Date</div>
+                        <Input
+                          type="date"
+                          className="h-8 text-xs"
+                          value={columnFilters.applicationSignDate || ""}
                           onChange={(e) =>
                             handleColumnFilter(
-                              "policyholderName",
+                              "applicationSignDate",
                               e.target.value,
                             )
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-32">
-                      <div className="space-y-2">
-                        <div>Effective Date</div>
-                        <Input
-                          type="date"
-                          className="h-8 text-xs"
-                          value={columnFilters.effectiveDate || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("effectiveDate", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-32">
-                      <div className="space-y-2">
-                        <div>Expiration Date</div>
-                        <Input
-                          type="date"
-                          className="h-8 text-xs"
-                          value={columnFilters.expirationDate || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("expirationDate", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-28">
-                      <div className="space-y-2">
-                        <div>Premium</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.premium || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("premium", e.target.value)
                           }
                         />
                       </div>
@@ -422,37 +423,6 @@ const PolicyDetails = () => {
                           }
                         />
                       </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-48">
-                      <div className="space-y-2">
-                        <div>Line of Business</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.lineOfBusiness || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("lineOfBusiness", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-28">
-                      <div className="space-y-2">
-                        <div>Coverage</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.coverage || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("coverage", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-32">
-                      <div className="py-2">Actions</div>
                     </TableHead>
                   </TableRow>
                 </TableHeader>
