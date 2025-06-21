@@ -278,20 +278,6 @@ const ReinsurerDetails = () => {
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Reinsurer Name</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.reinsurerName || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("reinsurerName", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
                         <div>Treaty ID</div>
                         <Input
                           type="text"
@@ -354,42 +340,6 @@ const ReinsurerDetails = () => {
                     </TableHead>
                     <TableHead className="font-semibold text-gray-900">
                       <div className="space-y-2">
-                        <div>Ceding Allowance for Commissions</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.cedingAllowanceCommissions || ""}
-                          onChange={(e) =>
-                            handleColumnFilter(
-                              "cedingAllowanceCommissions",
-                              e.target.value,
-                            )
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
-                        <div>Expense Allowance for Commissions</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={
-                            columnFilters.expenseAllowanceCommissions || ""
-                          }
-                          onChange={(e) =>
-                            handleColumnFilter(
-                              "expenseAllowanceCommissions",
-                              e.target.value,
-                            )
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900">
-                      <div className="space-y-2">
                         <div>Period Start Date</div>
                         <Input
                           type="text"
@@ -418,6 +368,9 @@ const ReinsurerDetails = () => {
                           }
                         />
                       </div>
+                    </TableHead>
+                    <TableHead className="font-semibold text-gray-900">
+                      <div className="py-2">Actions</div>
                     </TableHead>
                   </TableRow>
                 </TableHeader>
