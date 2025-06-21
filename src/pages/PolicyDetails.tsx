@@ -458,6 +458,21 @@ const PolicyDetails = () => {
                           {item.status}
                         </span>
                       </TableCell>
+                      <TableCell className="w-32">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            navigate(
+                              `/policy-transactions/TREATY-001?start=${item.applicationSignDate}&end=${item.applicationSignDate}&reinsurer=RE001&policy=${item.policyNumber}`,
+                            )
+                          }
+                          className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                        >
+                          <Eye className="w-4 h-4" />
+                          View Transactions
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
