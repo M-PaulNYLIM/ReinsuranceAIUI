@@ -68,7 +68,9 @@ const transformApiData = (apiData: ApiPolicyData[]): PolicyData[] => {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })}`,
-    applicationSignDate: new Date(item.RRCF_DATE_ADDED).toISOString().split("T")[0],
+    applicationSignDate: new Date(item.RRCF_DATE_ADDED)
+      .toISOString()
+      .split("T")[0],
     status: getRandomStatus(),
   }));
 };
@@ -215,8 +217,8 @@ const PolicyDetails = () => {
               Policy Details
             </h1>
             <p className="text-xl text-gray-600">
-              Manage and view comprehensive reinsurance information about
-              your insurance policies
+              Manage and view comprehensive reinsurance information about your
+              insurance policies
             </p>
           </div>
 
@@ -252,348 +254,366 @@ const PolicyDetails = () => {
           {/* Content - only show when data is loaded */}
           {!isLoading && !error && (
             <>
+              {/* Search Filters */}
+              <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <Search className="w-5 h-5 text-gray-600" />
+                  <h3 className="text-lg font-semibold text-gray-900">
+                    Search Filters
+                  </h3>
+                </div>
 
-          {/* Search Filters */}
-          <div className="bg-white border border-gray-200 rounded-lg p-6 mb-6">
-            <div className="flex items-center gap-2 mb-4">
-              <Search className="w-5 h-5 text-gray-600" />
-              <h3 className="text-lg font-semibold text-gray-900">
-                Search Filters
-              </h3>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Policy Number
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Search by Policy Number"
-                  value={searchPolicyNumber}
-                  onChange={(e) => setSearchPolicyNumber(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Product Name
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Search by Product Name"
-                  value={searchProductName}
-                  onChange={(e) => setSearchProductName(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Firm Name
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Search by Firm Name"
-                  value={searchFirmName}
-                  onChange={(e) => setSearchFirmName(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Status
-                </label>
-                <Input
-                  type="text"
-                  placeholder="Search by Status"
-                  value={searchStatus}
-                  onChange={(e) => setSearchStatus(e.target.value)}
-                  className="w-full"
-                />
-              </div>
-            </div>
-
-            <div className="mt-4 flex justify-end">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setSearchPolicyNumber("");
-                  setSearchProductName("");
-                  setSearchFirmName("");
-                  setSearchStatus("");
-                  setColumnFilters({});
-                  setCurrentPage(1);
-                }}
-                className="text-gray-600"
-              >
-                Clear All Filters
-              </Button>
-            </div>
-          </div>
-
-          {/* Data Table */}
-          <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
-            <div className="p-4 border-b border-gray-200">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">
-                  Policy Records
-                </h3>
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-gray-600">Show:</span>
-                    <Select
-                      value={rowsPerPage.toString()}
-                      onValueChange={(value) =>
-                        handleRowsPerPageChange(Number(value))
-                      }
-                    >
-                      <SelectTrigger className="w-20 h-8">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="15">15</SelectItem>
-                        <SelectItem value="25">25</SelectItem>
-                        <SelectItem value="50">50</SelectItem>
-                        <SelectItem value="100">100</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <span className="text-gray-600">rows</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Policy Number
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search by Policy Number"
+                      value={searchPolicyNumber}
+                      onChange={(e) => setSearchPolicyNumber(e.target.value)}
+                      className="w-full"
+                    />
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <Filter className="w-4 h-4" />
-                    Click column headers to filter
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Product Name
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search by Product Name"
+                      value={searchProductName}
+                      onChange={(e) => setSearchProductName(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Firm Name
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search by Firm Name"
+                      value={searchFirmName}
+                      onChange={(e) => setSearchFirmName(e.target.value)}
+                      className="w-full"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      Status
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search by Status"
+                      value={searchStatus}
+                      onChange={(e) => setSearchStatus(e.target.value)}
+                      className="w-full"
+                    />
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow className="bg-gray-50">
-                    <TableHead className="font-semibold text-gray-900 w-32">
-                      <div className="space-y-2">
-                        <div>Policy Number</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.policyNumber || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("policyNumber", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-48">
-                      <div className="space-y-2">
-                        <div>Product Name</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.productName || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("productName", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-48">
-                      <div className="space-y-2">
-                        <div>Firm Name</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.firmName || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("firmName", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-32">
-                      <div className="space-y-2">
-                        <div>Account Value</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.accountValue || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("accountValue", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-36">
-                      <div className="space-y-2">
-                        <div>Application Sign Date</div>
-                        <Input
-                          type="date"
-                          className="h-8 text-xs"
-                          value={columnFilters.applicationSignDate || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("applicationSignDate", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-24">
-                      <div className="space-y-2">
-                        <div>Status</div>
-                        <Input
-                          type="text"
-                          placeholder="Filter..."
-                          className="h-8 text-xs"
-                          value={columnFilters.status || ""}
-                          onChange={(e) =>
-                            handleColumnFilter("status", e.target.value)
-                          }
-                        />
-                      </div>
-                    </TableHead>
-                    <TableHead className="font-semibold text-gray-900 w-32">
-                      <div className="py-2">Actions</div>
-                    </TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {paginatedData.map((item, index) => (
-                    <TableRow key={index} className="hover:bg-gray-50">
-                      <TableCell className="font-medium w-32">
-                        {item.policyNumber}
-                      </TableCell>
-                      <TableCell className="w-48">
-                        {item.productName}
-                      </TableCell>
-                      <TableCell className="w-48">
-                        {item.firmName}
-                      </TableCell>
-                      <TableCell className="font-medium w-32">
-                        {item.accountValue}
-                      </TableCell>
-                      <TableCell className="w-36">
-                        {item.applicationSignDate}
-                      </TableCell>
-                      <TableCell className="w-24">
-                        <span
-                          className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                            item.status === "Active"
-                              ? "bg-green-100 text-green-800"
-                              : item.status === "Cancelled"
-                                ? "bg-red-100 text-red-800"
-                                : item.status === "Pending"
-                                  ? "bg-yellow-100 text-yellow-800"
-                                  : "bg-gray-100 text-gray-800"
-                          }`}
-                        >
-                          {item.status}
-                        </span>
-                      </TableCell>
-                      <TableCell className="w-32">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() =>
-                            navigate(
-                              `/policy-transactions/TREATY-001?start=${item.applicationSignDate}&end=${item.applicationSignDate}&reinsurer=RE001&policy=${item.policyNumber}`,
-                            )
-                          }
-                          className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-                        >
-                          <Eye className="w-4 h-4" />
-                          View Transactions
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-
-              {filteredData.length === 0 && (
-                <div className="text-center py-8 text-gray-500">
-                  No policies found matching your search criteria.
-                </div>
-              )}
-            </div>
-
-            {/* Pagination Controls */}
-            {filteredData.length > 0 && (
-              <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200">
-                <div className="text-sm text-gray-600">
-                  Showing {startRecord} to {endRecord} of {filteredData.length}{" "}
-                  results
-                </div>
-                <div className="flex items-center gap-2">
+                <div className="mt-4 flex justify-end">
                   <Button
                     variant="outline"
-                    size="sm"
-                    onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                    disabled={currentPage === 1}
-                    className="text-sm"
+                    onClick={() => {
+                      setSearchPolicyNumber("");
+                      setSearchProductName("");
+                      setSearchFirmName("");
+                      setSearchStatus("");
+                      setColumnFilters({});
+                      setCurrentPage(1);
+                    }}
+                    className="text-gray-600"
                   >
-                    Previous
-                  </Button>
-
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                      let pageNumber;
-                      if (totalPages <= 5) {
-                        pageNumber = i + 1;
-                      } else if (currentPage <= 3) {
-                        pageNumber = i + 1;
-                      } else if (currentPage >= totalPages - 2) {
-                        pageNumber = totalPages - 4 + i;
-                      } else {
-                        pageNumber = currentPage - 2 + i;
-                      }
-
-                      return (
-                        <Button
-                          key={pageNumber}
-                          variant={
-                            currentPage === pageNumber ? "default" : "outline"
-                          }
-                          size="sm"
-                          onClick={() => setCurrentPage(pageNumber)}
-                          className="w-8 h-8 text-sm"
-                        >
-                          {pageNumber}
-                        </Button>
-                      );
-                    })}
-                  </div>
-
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() =>
-                      setCurrentPage(Math.min(totalPages, currentPage + 1))
-                    }
-                    disabled={currentPage === totalPages}
-                    className="text-sm"
-                  >
-                    Next
+                    Clear All Filters
                   </Button>
                 </div>
               </div>
-            )}
-          </div>
 
-          <div className="text-center mt-8">
-            <Button
-              onClick={() => navigate("/")}
-              className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
-            >
-              Return to Dashboard
-            </Button>
-          </div>
-          {/* End of conditional content */}
+              {/* Data Table */}
+              <div className="bg-white border border-gray-200 rounded-lg overflow-hidden">
+                <div className="p-4 border-b border-gray-200">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Policy Records
+                    </h3>
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2 text-sm">
+                        <span className="text-gray-600">Show:</span>
+                        <Select
+                          value={rowsPerPage.toString()}
+                          onValueChange={(value) =>
+                            handleRowsPerPageChange(Number(value))
+                          }
+                        >
+                          <SelectTrigger className="w-20 h-8">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="15">15</SelectItem>
+                            <SelectItem value="25">25</SelectItem>
+                            <SelectItem value="50">50</SelectItem>
+                            <SelectItem value="100">100</SelectItem>
+                          </SelectContent>
+                        </Select>
+                        <span className="text-gray-600">rows</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-gray-600">
+                        <Filter className="w-4 h-4" />
+                        Click column headers to filter
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="bg-gray-50">
+                        <TableHead className="font-semibold text-gray-900 w-32">
+                          <div className="space-y-2">
+                            <div>Policy Number</div>
+                            <Input
+                              type="number"
+                              placeholder="Filter..."
+                              className="h-8 text-xs"
+                              value={columnFilters.policyNumber || ""}
+                              onChange={(e) =>
+                                handleColumnFilter(
+                                  "policyNumber",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-48">
+                          <div className="space-y-2">
+                            <div>Product Name</div>
+                            <Input
+                              type="text"
+                              placeholder="Filter..."
+                              className="h-8 text-xs"
+                              value={columnFilters.productName || ""}
+                              onChange={(e) =>
+                                handleColumnFilter(
+                                  "productName",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-48">
+                          <div className="space-y-2">
+                            <div>Firm Name</div>
+                            <Input
+                              type="text"
+                              placeholder="Filter..."
+                              className="h-8 text-xs"
+                              value={columnFilters.firmName || ""}
+                              onChange={(e) =>
+                                handleColumnFilter("firmName", e.target.value)
+                              }
+                            />
+                          </div>
+                        </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-32">
+                          <div className="space-y-2">
+                            <div>Account Value</div>
+                            <Input
+                              type="text"
+                              placeholder="Filter..."
+                              className="h-8 text-xs"
+                              value={columnFilters.accountValue || ""}
+                              onChange={(e) =>
+                                handleColumnFilter(
+                                  "accountValue",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-36">
+                          <div className="space-y-2">
+                            <div>Application Sign Date</div>
+                            <Input
+                              type="date"
+                              className="h-8 text-xs"
+                              value={columnFilters.applicationSignDate || ""}
+                              onChange={(e) =>
+                                handleColumnFilter(
+                                  "applicationSignDate",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-24">
+                          <div className="space-y-2">
+                            <div>Status</div>
+                            <Input
+                              type="text"
+                              placeholder="Filter..."
+                              className="h-8 text-xs"
+                              value={columnFilters.status || ""}
+                              onChange={(e) =>
+                                handleColumnFilter("status", e.target.value)
+                              }
+                            />
+                          </div>
+                        </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-32">
+                          <div className="py-2">Actions</div>
+                        </TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {paginatedData.map((item, index) => (
+                        <TableRow key={index} className="hover:bg-gray-50">
+                          <TableCell className="font-medium w-32">
+                            {item.policyNumber}
+                          </TableCell>
+                          <TableCell className="w-48">
+                            {item.productName}
+                          </TableCell>
+                          <TableCell className="w-48">
+                            {item.firmName}
+                          </TableCell>
+                          <TableCell className="font-medium w-32">
+                            {item.accountValue}
+                          </TableCell>
+                          <TableCell className="w-36">
+                            {item.applicationSignDate}
+                          </TableCell>
+                          <TableCell className="w-24">
+                            <span
+                              className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
+                                item.status === "Active"
+                                  ? "bg-green-100 text-green-800"
+                                  : item.status === "Cancelled"
+                                    ? "bg-red-100 text-red-800"
+                                    : item.status === "Pending"
+                                      ? "bg-yellow-100 text-yellow-800"
+                                      : "bg-gray-100 text-gray-800"
+                              }`}
+                            >
+                              {item.status}
+                            </span>
+                          </TableCell>
+                          <TableCell className="w-32">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() =>
+                                navigate(
+                                  `/policy-transactions/TREATY-001?start=${item.applicationSignDate}&end=${item.applicationSignDate}&reinsurer=RE001&policy=${item.policyNumber}`,
+                                )
+                              }
+                              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                            >
+                              <Eye className="w-4 h-4" />
+                              View Transactions
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+
+                  {filteredData.length === 0 && (
+                    <div className="text-center py-8 text-gray-500">
+                      No policies found matching your search criteria.
+                    </div>
+                  )}
+                </div>
+
+                {/* Pagination Controls */}
+                {filteredData.length > 0 && (
+                  <div className="flex items-center justify-between px-4 py-3 border-t border-gray-200">
+                    <div className="text-sm text-gray-600">
+                      Showing {startRecord} to {endRecord} of{" "}
+                      {filteredData.length} results
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          setCurrentPage(Math.max(1, currentPage - 1))
+                        }
+                        disabled={currentPage === 1}
+                        className="text-sm"
+                      >
+                        Previous
+                      </Button>
+
+                      <div className="flex items-center gap-1">
+                        {Array.from(
+                          { length: Math.min(5, totalPages) },
+                          (_, i) => {
+                            let pageNumber;
+                            if (totalPages <= 5) {
+                              pageNumber = i + 1;
+                            } else if (currentPage <= 3) {
+                              pageNumber = i + 1;
+                            } else if (currentPage >= totalPages - 2) {
+                              pageNumber = totalPages - 4 + i;
+                            } else {
+                              pageNumber = currentPage - 2 + i;
+                            }
+
+                            return (
+                              <Button
+                                key={pageNumber}
+                                variant={
+                                  currentPage === pageNumber
+                                    ? "default"
+                                    : "outline"
+                                }
+                                size="sm"
+                                onClick={() => setCurrentPage(pageNumber)}
+                                className="w-8 h-8 text-sm"
+                              >
+                                {pageNumber}
+                              </Button>
+                            );
+                          },
+                        )}
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() =>
+                          setCurrentPage(Math.min(totalPages, currentPage + 1))
+                        }
+                        disabled={currentPage === totalPages}
+                        className="text-sm"
+                      >
+                        Next
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="text-center mt-8">
+                <Button
+                  onClick={() => navigate("/")}
+                  className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
+                >
+                  Return to Dashboard
+                </Button>
+              </div>
+            </>
           )}
         </div>
       </main>
