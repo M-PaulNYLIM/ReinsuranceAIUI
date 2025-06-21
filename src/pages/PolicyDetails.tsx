@@ -424,6 +424,9 @@ const PolicyDetails = () => {
                         />
                       </div>
                     </TableHead>
+                    <TableHead className="font-semibold text-gray-900 w-32">
+                      <div className="py-2">Actions</div>
+                    </TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
