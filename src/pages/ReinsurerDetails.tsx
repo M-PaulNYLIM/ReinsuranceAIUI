@@ -380,15 +380,27 @@ const ReinsurerDetails = () => {
                       <TableCell className="font-medium">
                         {item.reinsurerID}
                       </TableCell>
-                      <TableCell>{item.reinsurerName}</TableCell>
                       <TableCell>{item.treatyID}</TableCell>
                       <TableCell>{item.quotaShare}</TableCell>
                       <TableCell>{item.cedingAllowance}</TableCell>
                       <TableCell>{item.expenseAllowance}</TableCell>
-                      <TableCell>{item.cedingAllowanceCommissions}</TableCell>
-                      <TableCell>{item.expenseAllowanceCommissions}</TableCell>
                       <TableCell>{item.periodStartDate}</TableCell>
                       <TableCell>{item.periodEndDate}</TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            navigate(
+                              `/policy-transactions/${item.treatyID}?start=${item.periodStartDate}&end=${item.periodEndDate}&reinsurer=${item.reinsurerID}`,
+                            )
+                          }
+                          className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                        >
+                          <Eye className="w-4 h-4" />
+                          View Transactions
+                        </Button>
+                      </TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
