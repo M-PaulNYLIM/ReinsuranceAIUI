@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { Info, BarChart3, FileText, Settings, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const Index = () => {
@@ -20,7 +20,7 @@ const Index = () => {
         <div className="flex items-center gap-6">
           {/* Logo placeholder - using a simple rectangular shape */}
           <div className="w-10 h-9 bg-gray-800 rounded flex items-center justify-center">
-            <span className="text-white text-xs font-bold">L</span>
+            <span className="text-white text-xs font-bold">R</span>
           </div>
         </div>
 
@@ -32,12 +32,18 @@ const Index = () => {
                 Home Page
               </span>
             </div>
-            <button className="flex items-center justify-center px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button
+              className="flex items-center justify-center px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => navigate("/reinsurer-details")}
+            >
               <span className="text-gray-800 text-base font-normal">
                 Reinsurer Details
               </span>
             </button>
-            <button className="flex items-center justify-center px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button
+              className="flex items-center justify-center px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => navigate("/policy-details")}
+            >
               <span className="text-gray-800 text-base font-normal">
                 Policy Details
               </span>
@@ -52,7 +58,10 @@ const Index = () => {
                 File Transfer Files
               </span>
             </button>
-            <button className="flex items-center justify-center px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors">
+            <button
+              className="flex items-center justify-center px-2 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => navigate("/analytics")}
+            >
               <span className="text-gray-800 text-base font-normal">
                 Analytics
               </span>
@@ -108,6 +117,14 @@ const Index = () => {
             >
               Policy Details
             </Button>
+            <Button
+              size="lg"
+              className="bg-blue-600 text-white border-blue-600 hover:bg-blue-700 px-6 py-3"
+              onClick={() => navigate("/analytics")}
+            >
+              <BarChart3 className="w-5 h-5 mr-2" />
+              Analytics Dashboard
+            </Button>
           </div>
         </div>
       </section>
@@ -121,123 +138,105 @@ const Index = () => {
               Business Capabilities
             </h2>
             <p className="text-xl text-gray-500 font-normal leading-relaxed">
-              Subheading
+              Comprehensive reinsurance management and analytics
             </p>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12 lg:gap-16">
-            {/* Card 1: Evaluate Treaty Rules */}
-            <Card className="border-0 shadow-none bg-transparent p-0">
-              <CardHeader className="flex flex-row items-start gap-6 p-0 pb-4">
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <Info className="w-7 h-7 text-gray-800" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-2xl font-bold text-gray-900 leading-tight tracking-tight mb-2">
-                    Evaluate Treaty Rules
-                  </CardTitle>
-                  <CardDescription className="text-base text-gray-500 leading-relaxed">
-                    Analyze and apply specific terms and conditions set out in a
-                    reinsurance treaty to ensure correct handling of reinsured
-                    policies, premiums, and claims
-                  </CardDescription>
-                </div>
+          {/* Capabilities Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card
+              className="hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => navigate("/reinsurer-details")}
+            >
+              <CardHeader>
+                <FileText className="w-8 h-8 text-blue-600 mb-2" />
+                <CardTitle className="text-lg">Reinsurer Management</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Manage reinsurer relationships, treaties, and quota share
+                  agreements with comprehensive tracking.
+                </CardDescription>
+              </CardContent>
             </Card>
 
-            {/* Card 2: Assign Policies */}
-            <Card className="border-0 shadow-none bg-transparent p-0">
-              <CardHeader className="flex flex-row items-start gap-6 p-0 pb-4">
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <Info className="w-7 h-7 text-gray-800" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-2xl font-bold text-gray-900 leading-tight tracking-tight mb-2">
-                    Assign Policies
-                  </CardTitle>
-                  <CardDescription className="text-base text-gray-500 leading-relaxed">
-                    Systematically review insurance policies to determine which
-                    ones qualify for reinsurance coverage under a treaty
-                    agreement, and formally linking those policies to the
-                    appropriate reinsurance arrangement
-                  </CardDescription>
-                </div>
+            <Card
+              className="hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => navigate("/policy-details")}
+            >
+              <CardHeader>
+                <Settings className="w-8 h-8 text-green-600 mb-2" />
+                <CardTitle className="text-lg">Policy Administration</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Complete policy lifecycle management with detailed tracking of
+                  products, firms, and account values.
+                </CardDescription>
+              </CardContent>
             </Card>
 
-            {/* Card 3: Audit & Reporting */}
-            <Card className="border-0 shadow-none bg-transparent p-0">
-              <CardHeader className="flex flex-row items-start gap-6 p-0 pb-4">
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <Info className="w-7 h-7 text-gray-800" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-2xl font-bold text-gray-900 leading-tight tracking-tight mb-2">
-                    Audit & Reporting
-                  </CardTitle>
-                  <CardDescription className="text-base text-gray-500 leading-relaxed">
-                    Accurate tracking and validation of reinsurance
-                    transactions. Compliant, transparent communication with
-                    reinsurers, internal stakeholders, and regulators.
-                  </CardDescription>
-                </div>
+            <Card
+              className="hover:shadow-lg transition-shadow cursor-pointer"
+              onClick={() => navigate("/analytics")}
+            >
+              <CardHeader>
+                <TrendingUp className="w-8 h-8 text-purple-600 mb-2" />
+                <CardTitle className="text-lg">Analytics & Reporting</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Interactive dashboards with key metrics, profitability
+                  analysis, and risk concentration insights.
+                </CardDescription>
+              </CardContent>
             </Card>
 
-            {/* Card 4: Placeholder */}
-            <Card className="border-0 shadow-none bg-transparent p-0">
-              <CardHeader className="flex flex-row items-start gap-6 p-0 pb-4">
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <Info className="w-7 h-7 text-gray-800" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-2xl font-bold text-gray-900 leading-tight tracking-tight mb-2">
-                    Title
-                  </CardTitle>
-                  <CardDescription className="text-base text-gray-500 leading-relaxed">
-                    Body text for whatever you'd like to say. Add main takeaway
-                    points, quotes, anecdotes, or even a very very short story.
-                  </CardDescription>
-                </div>
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardHeader>
+                <Info className="w-8 h-8 text-orange-600 mb-2" />
+                <CardTitle className="text-lg">Risk Management</CardTitle>
               </CardHeader>
+              <CardContent>
+                <CardDescription>
+                  Monitor risk concentration, exposure limits, and compliance
+                  across all reinsurance relationships.
+                </CardDescription>
+              </CardContent>
             </Card>
+          </div>
 
-            {/* Card 5: Placeholder */}
-            <Card className="border-0 shadow-none bg-transparent p-0">
-              <CardHeader className="flex flex-row items-start gap-6 p-0 pb-4">
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <Info className="w-7 h-7 text-gray-800" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-2xl font-bold text-gray-900 leading-tight tracking-tight mb-2">
-                    Title
-                  </CardTitle>
-                  <CardDescription className="text-base text-gray-500 leading-relaxed">
-                    Body text for whatever you'd like to say. Add main takeaway
-                    points, quotes, anecdotes, or even a very very short story.
-                  </CardDescription>
-                </div>
-              </CardHeader>
-            </Card>
-
-            {/* Card 6: Placeholder */}
-            <Card className="border-0 shadow-none bg-transparent p-0">
-              <CardHeader className="flex flex-row items-start gap-6 p-0 pb-4">
-                <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center">
-                  <Info className="w-7 h-7 text-gray-800" strokeWidth={2} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-2xl font-bold text-gray-900 leading-tight tracking-tight mb-2">
-                    Title
-                  </CardTitle>
-                  <CardDescription className="text-base text-gray-500 leading-relaxed">
-                    Body text for whatever you'd like to say. Add main takeaway
-                    points, quotes, anecdotes, or even a very very short story.
-                  </CardDescription>
-                </div>
-              </CardHeader>
-            </Card>
+          {/* Quick Access Section */}
+          <div className="mt-16">
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">
+              Quick Access
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Button
+                variant="outline"
+                className="h-16 flex flex-col items-center justify-center gap-2"
+                onClick={() => navigate("/reinsurer-details")}
+              >
+                <FileText className="w-5 h-5" />
+                <span>View All Treaties</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-16 flex flex-col items-center justify-center gap-2"
+                onClick={() => navigate("/policy-details")}
+              >
+                <Settings className="w-5 h-5" />
+                <span>Manage Policies</span>
+              </Button>
+              <Button
+                variant="outline"
+                className="h-16 flex flex-col items-center justify-center gap-2"
+                onClick={() => navigate("/analytics")}
+              >
+                <BarChart3 className="w-5 h-5" />
+                <span>View Analytics</span>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
