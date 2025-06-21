@@ -338,6 +338,7 @@ const ReinsurerDetails = () => {
                       setSearchStartDate("");
                       setSearchEndDate("");
                       setColumnFilters({});
+                      setCurrentPage(1);
                     }}
                     className="text-gray-600"
                   >
