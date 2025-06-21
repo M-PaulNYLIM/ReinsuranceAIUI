@@ -472,17 +472,31 @@ const ReinsurerDetails = () => {
                     <TableBody>
                       {filteredData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
-                          <TableCell className="font-medium">
+                          <TableCell className="font-medium w-24">
                             {item.reinsurerID}
                           </TableCell>
-                          <TableCell>{item.reinsurerName}</TableCell>
-                          <TableCell>{item.treatyID}</TableCell>
-                          <TableCell>{item.quotaShare}</TableCell>
-                          <TableCell>{item.cedingAllowance}</TableCell>
-                          <TableCell>{item.expenseAllowance}</TableCell>
-                          <TableCell>{item.periodStartDate}</TableCell>
-                          <TableCell>{item.periodEndDate}</TableCell>
-                          <TableCell>
+                          <TableCell className="w-64">
+                            {item.reinsurerName}
+                          </TableCell>
+                          <TableCell className="w-20">
+                            {item.treatyID}
+                          </TableCell>
+                          <TableCell className="w-24">
+                            {item.quotaShare}
+                          </TableCell>
+                          <TableCell className="w-28">
+                            {item.cedingAllowance}
+                          </TableCell>
+                          <TableCell className="w-28">
+                            {item.expenseAllowance}
+                          </TableCell>
+                          <TableCell className="w-32">
+                            {item.periodStartDate}
+                          </TableCell>
+                          <TableCell className="w-32">
+                            {item.periodEndDate}
+                          </TableCell>
+                          <TableCell className="w-32">
                             <Button
                               variant="outline"
                               size="sm"
