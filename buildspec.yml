@@ -5,31 +5,28 @@ phases:
     runtime-versions:
       nodejs: 18
     commands:
+      - cd ReinsuranceAIUI
       - echo "Installing dependencies..."
       - npm ci --production=false
 
   pre_build:
     commands:
-      - echo "Running pre-build checks..."
-      - echo "Type checking..."
+      - echo "Running typecheck..."
       - npm run typecheck
       - echo "Running tests..."
       - npm run test
-      - echo "Formatting check..."
+      - echo "Running formatting check..."
       - npx prettier --check .
 
   build:
     commands:
       - echo "Building the application..."
       - npm run build
-      - echo "Build completed successfully"
 
   post_build:
     commands:
-      - echo "Post-build phase..."
-      - echo "Listing build artifacts..."
+      - echo "Post-build: Listing files"
       - ls -la dist/
-      - echo "Build process completed"
 
 artifacts:
   files:
@@ -38,8 +35,8 @@ artifacts:
 
 cache:
   paths:
-    - "node_modules/**/*"
-    - ".npm/**/*"
+    - "ReinsuranceAIUI/node_modules/**/*"
+    - "ReinsuranceAIUI/.npm/**/*"
 
 env:
   variables:
