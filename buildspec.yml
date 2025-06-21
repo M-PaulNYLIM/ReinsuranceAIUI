@@ -10,22 +10,26 @@ phases:
 
   pre_build:
     commands:
-      - echo "Running typecheck..."
+      - echo "Running pre-build checks..."
+      - echo "Type checking..."
       - npm run typecheck
       - echo "Running tests..."
       - npm run test
-      - echo "Running formatting check..."
+      - echo "Formatting check..."
       - npx prettier --check .
 
   build:
     commands:
       - echo "Building the application..."
       - npm run build
+      - echo "Build completed successfully"
 
   post_build:
     commands:
-      - echo "Post-build: Listing files"
+      - echo "Post-build phase..."
+      - echo "Listing build artifacts..."
       - ls -la dist/
+      - echo "Build process completed"
 
 artifacts:
   files:
