@@ -121,6 +121,10 @@ const PolicyTransactionDetails = () => {
     {},
   );
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState(15);
+
   // Get sample transaction data
   const sampleTransactions = useMemo(
     () => generateSampleTransactions(treatyID || ""),
