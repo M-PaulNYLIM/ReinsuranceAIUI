@@ -557,23 +557,20 @@ const ReinsurerTransactionDetails = () => {
                     <TableBody>
                       {paginatedData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
-                          <TableCell className="font-medium w-32 text-center">
+                          <TableCell className="font-medium w-36 text-center">
+                            {item.policyNumber}
+                          </TableCell>
+                          <TableCell className="w-32 text-center">
                             {item.productCode}
                           </TableCell>
-                          <TableCell className="w-64 text-center">
+                          <TableCell className="w-48 text-center">
                             {item.productName}
                           </TableCell>
                           <TableCell className="w-24 text-center">
                             {item.tenor}
                           </TableCell>
-                          <TableCell className="w-28 text-center">
-                            {item.quotaShare}
-                          </TableCell>
-                          <TableCell className="w-32 text-center">
-                            {item.cedingAllowance}
-                          </TableCell>
-                          <TableCell className="w-32 text-center">
-                            {item.expenseAllowance}
+                          <TableCell className="w-48 text-center">
+                            {item.firmName}
                           </TableCell>
                         </TableRow>
                       ))}
