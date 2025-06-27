@@ -210,10 +210,10 @@ const ReinsurerDetails = () => {
       </header>
 
       {/* Main Content */}
-      <main className="px-6 md:px-12 py-8">
+      <main className="px-4 md:px-8 py-4">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
               Reinsurer Details
             </h1>
             <p className="text-xl text-gray-600">
@@ -224,7 +224,7 @@ const ReinsurerDetails = () => {
 
           {/* Loading State */}
           {isLoading && (
-            <div className="flex items-center justify-center py-16">
+            <div className="flex items-center justify-center py-8">
               <div className="flex items-center gap-3 text-gray-600">
                 <Loader2 className="w-6 h-6 animate-spin" />
                 <span className="text-lg">Loading reinsurer data...</span>
@@ -646,7 +646,7 @@ const ReinsurerDetails = () => {
                 )}
               </div>
 
-              <div className="text-center mt-8">
+              <div className="text-center mt-4">
                 <Button
                   onClick={() => navigate("/")}
                   className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"

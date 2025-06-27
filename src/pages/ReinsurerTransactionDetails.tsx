@@ -260,10 +260,10 @@ const ReinsurerTransactionDetails = () => {
       </header>
 
       {/* Main Content */}
-      <main className="px-6 md:px-12 py-8">
+      <main className="px-4 md:px-8 py-4">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-6">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <div className="mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-2">
               Reinsurance Transaction Details
             </h1>
             <p className="text-xl text-gray-600">
@@ -272,8 +272,8 @@ const ReinsurerTransactionDetails = () => {
           </div>
 
           {/* Reinsurer Information Section */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+            <h2 className="text-2xl font-bold text-blue-900 mb-3">
               Reinsurer Information
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -314,7 +314,7 @@ const ReinsurerTransactionDetails = () => {
 
           {/* Loading State */}
           {isLoading && (
-            <div className="flex items-center justify-center py-16">
+            <div className="flex items-center justify-center py-8">
               <div className="flex items-center gap-3 text-gray-600">
                 <Loader2 className="w-6 h-6 animate-spin" />
                 <span className="text-lg">Loading transaction data...</span>
@@ -640,7 +640,7 @@ const ReinsurerTransactionDetails = () => {
                 )}
               </div>
 
-              <div className="text-center mt-8">
+              <div className="text-center mt-4">
                 <Button
                   onClick={() => navigate("/reinsurer-details")}
                   className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
