@@ -153,8 +153,10 @@ const ReinsurerTransactionDetails = () => {
   }, [apiData]);
 
   // Search states
+  const [searchPolicyNumber, setSearchPolicyNumber] = useState("");
   const [searchProductCode, setSearchProductCode] = useState("");
   const [searchProductName, setSearchProductName] = useState("");
+  const [searchFirmName, setSearchFirmName] = useState("");
 
   // Column filter states
   const [columnFilters, setColumnFilters] = useState<{ [key: string]: string }>(
@@ -168,12 +170,18 @@ const ReinsurerTransactionDetails = () => {
   // Filtered data based on search criteria
   const filteredData = useMemo(() => {
     return transactionData.filter((item) => {
+      const matchesPolicyNumber = item.policyNumber
+        .toLowerCase()
+        .includes(searchPolicyNumber.toLowerCase());
       const matchesProductCode = item.productCode
         .toLowerCase()
         .includes(searchProductCode.toLowerCase());
       const matchesProductName = item.productName
         .toLowerCase()
         .includes(searchProductName.toLowerCase());
+      const matchesFirmName = item.firmName
+        .toLowerCase()
+        .includes(searchFirmName.toLowerCase());
 
       // Apply column filters
       const matchesColumnFilters = Object.entries(columnFilters).every(
@@ -184,9 +192,22 @@ const ReinsurerTransactionDetails = () => {
         },
       );
 
-      return matchesProductCode && matchesProductName && matchesColumnFilters;
+      return (
+        matchesPolicyNumber &&
+        matchesProductCode &&
+        matchesProductName &&
+        matchesFirmName &&
+        matchesColumnFilters
+      );
     });
-  }, [searchProductCode, searchProductName, columnFilters, transactionData]);
+  }, [
+    searchPolicyNumber,
+    searchProductCode,
+    searchProductName,
+    searchFirmName,
+    columnFilters,
+    transactionData,
+  ]);
 
   // Paginated data
   const paginatedData = useMemo(() => {
