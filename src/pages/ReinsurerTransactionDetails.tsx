@@ -142,11 +142,9 @@ const ReinsurerTransactionDetails = () => {
 
   // Get reinsurer info from URL params
   const reinsurerID = searchParams.get("reinsurer") || "N/A";
+  const reinsurerName = searchParams.get("reinsurerName") || "N/A";
   const startDate = searchParams.get("start") || "N/A";
   const endDate = searchParams.get("end") || "N/A";
-
-  // Fetch reinsurer name (in real implementation, this would come from another API call)
-  const reinsurerName = "Global Reinsurance Partners"; // Mock data
 
   // Fetch data using React Query
   const {

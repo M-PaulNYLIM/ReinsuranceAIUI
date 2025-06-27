@@ -555,7 +555,7 @@ const ReinsurerDetails = () => {
                               size="sm"
                               onClick={() =>
                                 navigate(
-                                  `/reinsurer-transactions/${item.treatyID}?start=${item.periodStartDate}&end=${item.periodEndDate}&reinsurer=${item.reinsurerID}`,
+                                  `/reinsurer-transactions/${item.treatyID}?start=${item.periodStartDate}&end=${item.periodEndDate}&reinsurer=${item.reinsurerID}&reinsurerName=${encodeURIComponent(item.reinsurerName)}`,
                                 )
                               }
                               className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
