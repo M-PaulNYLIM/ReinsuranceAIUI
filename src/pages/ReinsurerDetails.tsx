@@ -22,14 +22,14 @@ import { useQuery } from "@tanstack/react-query";
 
 // API response type
 interface ApiReinsurerData {
-  REINSURER_ID: number;
-  REINSURER_NAME: string;
-  TREATY_ID: number;
-  QUOTA_SHARE: string;
-  CEDEING_ALL_PREM: string;
-  EXPENSE_ALL_PREM: string;
-  PER_START_DATE: string;
-  PER_END_DATE: string;
+  REINSURER_ID?: number | null;
+  REINSURER_NAME?: string | null;
+  TREATY_ID?: number | null;
+  QUOTA_SHARE?: string | null;
+  CEDEING_ALL_PREM?: string | null;
+  EXPENSE_ALL_PREM?: string | null;
+  PER_START_DATE?: string | null;
+  PER_END_DATE?: string | null;
 }
 
 // Transformed data type for display
