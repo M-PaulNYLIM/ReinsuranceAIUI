@@ -263,7 +263,7 @@ const PolicyDetails = () => {
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       Policy Number
@@ -302,19 +302,6 @@ const PolicyDetails = () => {
                       className="w-full"
                     />
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Status
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Search by Status"
-                      value={searchStatus}
-                      onChange={(e) => setSearchStatus(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
                 </div>
 
                 <div className="mt-4 flex justify-end">
@@ -324,7 +311,6 @@ const PolicyDetails = () => {
                       setSearchPolicyNumber("");
                       setSearchProductName("");
                       setSearchFirmName("");
-                      setSearchStatus("");
                       setColumnFilters({});
                       setCurrentPage(1);
                     }}
