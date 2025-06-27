@@ -60,19 +60,25 @@ const getRandomStatus = (): string => {
 
 // Transform API data to display format
 const transformApiData = (apiData: ApiPolicyData[]): PolicyData[] => {
-  return apiData.map((item) => ({
-    policyNumber: item.POLICY_NUMBER.toString(),
-    productName: item.PRODUCT_NAME,
-    firmName: item.RF_FIRM_NAME,
-    accountValue: `$${parseFloat(item.ENDING_AV).toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })}`,
-    applicationSignDate: new Date(item.RRCF_DATE_ADDED)
-      .toISOString()
-      .split("T")[0],
-    status: getRandomStatus(),
-  }));
+  return apiData.map((item) => {
+    const accountValue = parseFloat(item.ENDING_AV);
+    return {
+      policyNumber: item.POLICY_NUMBER.toString(),
+      productName: item.PRODUCT_NAME,
+      firmName: item.RF_FIRM_NAME,
+      applicationSignDate: new Date(item.RRCF_DATE_ADDED)
+        .toISOString()
+        .split("T")[0],
+      accountValue: `$${accountValue.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
+      reinsuredAccountValue: `$${(accountValue * 0.25).toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`, // 25% of account value as sample reinsured amount
+    };
+  });
 };
 
 const PolicyDetails = () => {
