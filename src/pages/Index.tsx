@@ -24,7 +24,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <header className="flex items-center justify-between px-8 py-8 border-b border-gray-200 bg-white">
+      <header className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
         <div className="flex items-center gap-6">
           {/* RECAP Branded Logo */}
           <img
