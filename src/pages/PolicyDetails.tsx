@@ -464,22 +464,22 @@ const PolicyDetails = () => {
                     <TableBody>
                       {paginatedData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
-                          <TableCell className="font-medium w-32">
+                          <TableCell className="font-medium w-32 text-center">
                             {item.policyNumber}
                           </TableCell>
-                          <TableCell className="w-48">
+                          <TableCell className="w-48 text-center">
                             {item.productName}
                           </TableCell>
-                          <TableCell className="w-48">
+                          <TableCell className="w-36 text-center">
                             {item.firmName}
                           </TableCell>
-                          <TableCell className="w-36">
+                          <TableCell className="w-36 text-center">
                             {item.applicationSignDate}
                           </TableCell>
-                          <TableCell className="font-medium w-32">
+                          <TableCell className="font-medium w-32 text-center">
                             {item.accountValue}
                           </TableCell>
-                          <TableCell className="font-medium w-36">
+                          <TableCell className="font-medium w-36 text-center">
                             {item.reinsuredAccountValue}
                           </TableCell>
                         </TableRow>
