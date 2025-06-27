@@ -378,7 +378,7 @@ const PolicyDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-48">
+                        <TableHead className="font-semibold text-gray-900 w-48 text-center">
                           <div className="space-y-2">
                             <div>Product Name</div>
                             <Input
@@ -395,7 +395,7 @@ const PolicyDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-48">
+                        <TableHead className="font-semibold text-gray-900 w-36 text-center">
                           <div className="space-y-2">
                             <div>Firm Name</div>
                             <Input
