@@ -234,7 +234,7 @@ const PolicyDetails = () => {
 
           {/* Error State */}
           {error && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
               <div className="flex items-center gap-2 text-red-800">
                 <h3 className="text-lg font-semibold">Error Loading Data</h3>
               </div>
