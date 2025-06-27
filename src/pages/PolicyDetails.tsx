@@ -409,7 +409,7 @@ const PolicyDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-36">
+                        <TableHead className="font-semibold text-gray-900 w-36 text-center">
                           <div className="space-y-2">
                             <div>Application Sign Date</div>
                             <Input
@@ -425,7 +425,7 @@ const PolicyDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
+                        <TableHead className="font-semibold text-gray-900 w-32 text-center">
                           <div className="space-y-2">
                             <div>Account Value</div>
                             <Input
@@ -442,7 +442,7 @@ const PolicyDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-36">
+                        <TableHead className="font-semibold text-gray-900 w-36 text-center">
                           <div className="space-y-2">
                             <div>Reinsured Account Value</div>
                             <Input
