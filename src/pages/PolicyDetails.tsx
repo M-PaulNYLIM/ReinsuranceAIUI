@@ -212,7 +212,7 @@ const PolicyDetails = () => {
       {/* Main Content */}
       <main className="px-6 md:px-12 py-8">
         <div className="max-w-7xl mx-auto">
-          <div className="mb-8">
+          <div className="mb-6">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Policy Details
             </h1>
