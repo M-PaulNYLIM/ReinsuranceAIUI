@@ -60,14 +60,24 @@ const fetchReinsurerData = async (): Promise<ApiReinsurerData[]> => {
 // Transform API data to display format
 const transformApiData = (apiData: ApiReinsurerData[]): ReinsurerData[] => {
   return apiData.map((item) => ({
-    reinsurerID: item.REINSURER_ID.toString(),
-    reinsurerName: item.REINSURER_NAME,
-    treatyID: item.TREATY_ID.toString(),
-    quotaShare: `${parseFloat(item.QUOTA_SHARE).toFixed(2)}%`,
-    cedingAllowance: parseFloat(item.CEDEING_ALL_PREM).toFixed(4),
-    expenseAllowance: parseFloat(item.EXPENSE_ALL_PREM).toFixed(4),
-    periodStartDate: new Date(item.PER_START_DATE).toISOString().split("T")[0],
-    periodEndDate: new Date(item.PER_END_DATE).toISOString().split("T")[0],
+    reinsurerID: item.REINSURER_ID?.toString() || "N/A",
+    reinsurerName: item.REINSURER_NAME || "N/A",
+    treatyID: item.TREATY_ID?.toString() || "N/A",
+    quotaShare: item.QUOTA_SHARE
+      ? `${parseFloat(item.QUOTA_SHARE).toFixed(2)}%`
+      : "N/A",
+    cedingAllowance: item.CEDEING_ALL_PREM
+      ? parseFloat(item.CEDEING_ALL_PREM).toFixed(4)
+      : "N/A",
+    expenseAllowance: item.EXPENSE_ALL_PREM
+      ? parseFloat(item.EXPENSE_ALL_PREM).toFixed(4)
+      : "N/A",
+    periodStartDate: item.PER_START_DATE
+      ? new Date(item.PER_START_DATE).toISOString().split("T")[0]
+      : "N/A",
+    periodEndDate: item.PER_END_DATE
+      ? new Date(item.PER_END_DATE).toISOString().split("T")[0]
+      : "N/A",
   }));
 };
 
