@@ -46,15 +46,28 @@ interface ReinsurerData {
 
 // API fetch function
 const fetchReinsurerData = async (): Promise<ApiReinsurerData[]> => {
-  const response = await fetch(
-    "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerLanding",
-  );
+  try {
+    const response = await fetch(
+      "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerLanding",
+    );
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch reinsurer data");
+    if (!response.ok) {
+      throw new Error(`Failed to fetch reinsurer data: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    // Ensure we always return an array
+    if (!Array.isArray(data)) {
+      console.warn("API returned non-array data:", data);
+      return [];
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching reinsurer data:", error);
+    throw error;
   }
-
-  return response.json();
 };
 
 // Transform API data to display format
