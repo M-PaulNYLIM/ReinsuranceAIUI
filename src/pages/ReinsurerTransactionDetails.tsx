@@ -538,10 +538,10 @@ const ReinsurerTransactionDetails = () => {
                     <TableBody>
                       {paginatedData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
-                          <TableCell className="font-medium w-32">
+                          <TableCell className="font-medium w-32 text-center">
                             {item.productCode}
                           </TableCell>
-                          <TableCell className="w-64">
+                          <TableCell className="w-64 text-center">
                             {item.productName}
                           </TableCell>
                           <TableCell className="w-24 text-center">

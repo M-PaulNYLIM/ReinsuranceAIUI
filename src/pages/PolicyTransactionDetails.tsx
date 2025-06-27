@@ -524,13 +524,13 @@ const PolicyTransactionDetails = () => {
                 <TableBody>
                   {paginatedData.map((transaction, index) => (
                     <TableRow key={index} className="hover:bg-gray-50">
-                      <TableCell className="font-medium w-32">
+                      <TableCell className="font-medium w-32 text-center">
                         {transaction.policyNumber}
                       </TableCell>
-                      <TableCell className="w-28">
+                      <TableCell className="w-28 text-center">
                         {transaction.transactionID}
                       </TableCell>
-                      <TableCell className="w-36">
+                      <TableCell className="w-36 text-center">
                         <span
                           className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
                             transaction.transactionType === "New Business"
@@ -548,22 +548,22 @@ const PolicyTransactionDetails = () => {
                           {transaction.transactionType}
                         </span>
                       </TableCell>
-                      <TableCell className="w-32">
+                      <TableCell className="w-32 text-center">
                         {transaction.transactionDate}
                       </TableCell>
-                      <TableCell className="w-48">
+                      <TableCell className="w-48 text-center">
                         {transaction.insuredName}
                       </TableCell>
-                      <TableCell className="font-medium w-28">
+                      <TableCell className="font-medium w-28 text-center">
                         {transaction.premium}
                       </TableCell>
-                      <TableCell className="font-medium w-36">
+                      <TableCell className="font-medium w-36 text-center">
                         {transaction.quotaSharePremium}
                       </TableCell>
-                      <TableCell className="w-32">
+                      <TableCell className="w-32 text-center">
                         {transaction.cedingCommission}
                       </TableCell>
-                      <TableCell className="font-medium w-28">
+                      <TableCell className="font-medium w-28 text-center">
                         {transaction.netPremium}
                       </TableCell>
                     </TableRow>

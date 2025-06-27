@@ -476,22 +476,22 @@ const ReinsurerDetails = () => {
                     <TableBody>
                       {paginatedData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
-                          <TableCell className="font-medium w-24">
+                          <TableCell className="font-medium w-24 text-center">
                             {item.reinsurerID}
                           </TableCell>
-                          <TableCell className="w-64">
+                          <TableCell className="w-64 text-center">
                             {item.reinsurerName}
                           </TableCell>
-                          <TableCell className="w-20">
+                          <TableCell className="w-20 text-center">
                             {item.treatyID}
                           </TableCell>
-                          <TableCell className="w-32">
+                          <TableCell className="w-32 text-center">
                             {item.periodStartDate}
                           </TableCell>
-                          <TableCell className="w-32">
+                          <TableCell className="w-32 text-center">
                             {item.periodEndDate}
                           </TableCell>
-                          <TableCell className="w-32">
+                          <TableCell className="w-32 text-center">
                             <Button
                               variant="outline"
                               size="sm"
