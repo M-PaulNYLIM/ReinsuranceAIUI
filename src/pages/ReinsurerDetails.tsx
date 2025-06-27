@@ -435,56 +435,7 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-24">
-                          <div className="space-y-2">
-                            <div>Quota Share</div>
-                            <Input
-                              type="text"
-                              placeholder="Filter..."
-                              className="h-8 text-xs"
-                              value={columnFilters.quotaShare || ""}
-                              onChange={(e) =>
-                                handleColumnFilter("quotaShare", e.target.value)
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-28">
-                          <div className="space-y-2">
-                            <div>Ceding Allowance</div>
-                            <Input
-                              type="number"
-                              step="0.0001"
-                              placeholder="Filter..."
-                              className="h-8 text-xs"
-                              value={columnFilters.cedingAllowance || ""}
-                              onChange={(e) =>
-                                handleColumnFilter(
-                                  "cedingAllowance",
-                                  e.target.value,
-                                )
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-28">
-                          <div className="space-y-2">
-                            <div>Expense Allowance</div>
-                            <Input
-                              type="number"
-                              step="0.0001"
-                              placeholder="Filter..."
-                              className="h-8 text-xs"
-                              value={columnFilters.expenseAllowance || ""}
-                              onChange={(e) =>
-                                handleColumnFilter(
-                                  "expenseAllowance",
-                                  e.target.value,
-                                )
-                              }
-                            />
-                          </div>
-                        </TableHead>
+
                         <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Period Start Date</div>
@@ -533,15 +484,6 @@ const ReinsurerDetails = () => {
                           </TableCell>
                           <TableCell className="w-20">
                             {item.treatyID}
-                          </TableCell>
-                          <TableCell className="w-24">
-                            {item.quotaShare}
-                          </TableCell>
-                          <TableCell className="w-28">
-                            {item.cedingAllowance}
-                          </TableCell>
-                          <TableCell className="w-28">
-                            {item.expenseAllowance}
                           </TableCell>
                           <TableCell className="w-32">
                             {item.periodStartDate}
