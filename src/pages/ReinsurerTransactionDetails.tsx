@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Search, Filter, Loader2 } from "lucide-react";
+import { ArrowLeft, Search, Filter, Loader2, Eye } from "lucide-react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -509,6 +509,9 @@ const ReinsurerTransactionDetails = () => {
                             />
                           </div>
                         </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-32">
+                          <div className="py-2">Actions</div>
+                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -528,6 +531,21 @@ const ReinsurerTransactionDetails = () => {
                           </TableCell>
                           <TableCell className="w-48 text-center">
                             {item.firmName}
+                          </TableCell>
+                          <TableCell className="w-32 text-center">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() =>
+                                navigate(
+                                  `/policy-details-view/${item.policyNumber}`,
+                                )
+                              }
+                              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
+                            >
+                              <Eye className="w-4 h-4" />
+                              View Details
+                            </Button>
                           </TableCell>
                         </TableRow>
                       ))}
