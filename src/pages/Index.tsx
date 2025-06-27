@@ -101,7 +101,7 @@ const Index = () => {
       <section className="relative px-6 py-12 md:py-20 flex flex-col items-center justify-center text-center bg-white bg-opacity-80 bg-blend-overlay bg-gray-50">
         <div className="max-w-4xl mx-auto">
           {/* Title and Subtitle */}
-          <div className="flex flex-col items-center gap-2 mb-8">
+          <div className="flex flex-col items-center gap-2 mb-6">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight tracking-tight">
               RECAP
             </h1>
