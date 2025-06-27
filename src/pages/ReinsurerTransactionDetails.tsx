@@ -116,12 +116,11 @@ const transformApiData = (
   apiData: ApiReinsurerTransactionData[],
 ): ReinsurerTransactionData[] => {
   return apiData.map((item) => ({
+    policyNumber: item.POLICY_NUMBER,
     productCode: item.PRODUCT_CODE,
     productName: item.PRODUCT_NAME,
     tenor: item.TENOR,
-    quotaShare: `${parseFloat(item.QUOTA_SHARE).toFixed(1)}%`,
-    cedingAllowance: parseFloat(item.CEDING_ALLOWANCE).toFixed(4),
-    expenseAllowance: parseFloat(item.EXPENSE_ALLOWANCE).toFixed(4),
+    firmName: item.FIRM_NAME,
   }));
 };
 
