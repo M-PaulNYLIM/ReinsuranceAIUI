@@ -210,7 +210,7 @@ const PolicyDetails = () => {
       </header>
 
       {/* Main Content */}
-      <main className="px-6 md:px-16 py-16">
+      <main className="px-6 md:px-12 py-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
