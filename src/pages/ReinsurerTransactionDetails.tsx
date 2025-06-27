@@ -345,55 +345,55 @@ const ReinsurerTransactionDetails = () => {
           {!isLoading && !error && (
             <>
               {/* Search Filters */}
-              <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4">
-                <div className="flex items-center gap-2 mb-4">
-                  <Search className="w-5 h-5 text-gray-600" />
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    Search Filters
-                  </h3>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Product Code
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Search by Product Code"
-                      value={searchProductCode}
-                      onChange={(e) => setSearchProductCode(e.target.value)}
-                      className="w-full"
-                    />
+              <div className="bg-white border border-gray-200 rounded-lg p-3 mb-3">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <Search className="w-4 h-4 text-gray-600" />
+                    <h3 className="text-base font-semibold text-gray-900">
+                      Search Filters
+                    </h3>
                   </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Product Name
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Search by Product Name"
-                      value={searchProductName}
-                      onChange={(e) => setSearchProductName(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
-                </div>
-
-                <div className="mt-4 flex justify-end">
                   <Button
                     variant="outline"
+                    size="sm"
                     onClick={() => {
                       setSearchProductCode("");
                       setSearchProductName("");
                       setColumnFilters({});
                       setCurrentPage(1);
                     }}
-                    className="text-gray-600"
+                    className="text-gray-600 h-7 px-3 text-xs"
                   >
-                    Clear All Filters
+                    Clear All
                   </Button>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 max-w-xs">
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                      Product Code
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search by code..."
+                      value={searchProductCode}
+                      onChange={(e) => setSearchProductCode(e.target.value)}
+                      className="w-full h-8 text-sm"
+                    />
+                  </div>
+
+                  <div className="flex-1 max-w-sm">
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                      Product Name
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search by name..."
+                      value={searchProductName}
+                      onChange={(e) => setSearchProductName(e.target.value)}
+                      className="w-full h-8 text-sm"
+                    />
+                  </div>
                 </div>
               </div>
 
