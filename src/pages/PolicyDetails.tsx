@@ -224,7 +224,7 @@ const PolicyDetails = () => {
 
           {/* Loading State */}
           {isLoading && (
-            <div className="flex items-center justify-center py-16">
+            <div className="flex items-center justify-center py-8">
               <div className="flex items-center gap-3 text-gray-600">
                 <Loader2 className="w-6 h-6 animate-spin" />
                 <span className="text-lg">Loading policy data...</span>
