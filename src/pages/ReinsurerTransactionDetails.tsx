@@ -23,10 +23,10 @@ import { useQuery } from "@tanstack/react-query";
 // API response type
 interface ApiReinsurerTransactionData {
   POLICY_NUMBER: string;
-  PRODUCT_CODE: string;
   PRODUCT_NAME: string;
+  PRODUCT_CODE: string;
   TENOR: number;
-  FIRM_NAME: string;
+  RF_FIRM_NAME: string;
 }
 
 // Transformed data type for display
@@ -42,73 +42,30 @@ interface ReinsurerTransactionData {
 const fetchReinsurerTransactionData = async (
   treatyId: string,
 ): Promise<ApiReinsurerTransactionData[]> => {
-  // For now, return mock data since we don't have the actual API endpoint
-  // In a real implementation, this would call an API endpoint like:
-  // `https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getReinsurerTransactions/${treatyId}`
+  try {
+    const response = await fetch(
+      "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerDetails",
+    );
 
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const mockData: ApiReinsurerTransactionData[] = [
-        {
-          POLICY_NUMBER: "POL001234567",
-          PRODUCT_CODE: "LI001",
-          PRODUCT_NAME: "Term Life Insurance",
-          TENOR: 20,
-          FIRM_NAME: "Allstate Financial Services",
-        },
-        {
-          POLICY_NUMBER: "POL001234568",
-          PRODUCT_CODE: "LI002",
-          PRODUCT_NAME: "Whole Life Insurance",
-          TENOR: 30,
-          FIRM_NAME: "Prudential Life Insurance",
-        },
-        {
-          POLICY_NUMBER: "POL001234569",
-          PRODUCT_CODE: "AN001",
-          PRODUCT_NAME: "Fixed Annuity",
-          TENOR: 15,
-          FIRM_NAME: "MetLife Investment Solutions",
-        },
-        {
-          POLICY_NUMBER: "POL001234570",
-          PRODUCT_CODE: "AN002",
-          PRODUCT_NAME: "Variable Annuity",
-          TENOR: 25,
-          FIRM_NAME: "New York Life Insurance",
-        },
-        {
-          POLICY_NUMBER: "POL001234571",
-          PRODUCT_CODE: "DI001",
-          PRODUCT_NAME: "Disability Insurance",
-          TENOR: 10,
-          FIRM_NAME: "Northwestern Mutual",
-        },
-        {
-          POLICY_NUMBER: "POL001234572",
-          PRODUCT_CODE: "CI001",
-          PRODUCT_NAME: "Critical Illness",
-          TENOR: 20,
-          FIRM_NAME: "Guardian Life Insurance",
-        },
-        {
-          POLICY_NUMBER: "POL001234573",
-          PRODUCT_CODE: "UL001",
-          PRODUCT_NAME: "Universal Life",
-          TENOR: 40,
-          FIRM_NAME: "MassMutual Financial Group",
-        },
-        {
-          POLICY_NUMBER: "POL001234574",
-          PRODUCT_CODE: "TR001",
-          PRODUCT_NAME: "Travel Insurance",
-          TENOR: 1,
-          FIRM_NAME: "Travelers Insurance",
-        },
-      ];
-      resolve(mockData);
-    }, 800);
-  });
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch reinsurer transaction data: ${response.status}`,
+      );
+    }
+
+    const data = await response.json();
+
+    // Ensure we always return an array
+    if (!Array.isArray(data)) {
+      console.warn("API returned non-array data:", data);
+      return [];
+    }
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching reinsurer transaction data:", error);
+    throw error;
+  }
 };
 
 // Transform API data to display format
@@ -116,11 +73,11 @@ const transformApiData = (
   apiData: ApiReinsurerTransactionData[],
 ): ReinsurerTransactionData[] => {
   return apiData.map((item) => ({
-    policyNumber: item.POLICY_NUMBER,
-    productCode: item.PRODUCT_CODE,
-    productName: item.PRODUCT_NAME,
-    tenor: item.TENOR,
-    firmName: item.FIRM_NAME,
+    policyNumber: item.POLICY_NUMBER || "N/A",
+    productCode: item.PRODUCT_CODE || "N/A",
+    productName: item.PRODUCT_NAME || "N/A",
+    tenor: item.TENOR || 0,
+    firmName: item.RF_FIRM_NAME || "N/A",
   }));
 };
 
