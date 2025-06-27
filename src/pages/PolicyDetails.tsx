@@ -473,41 +473,14 @@ const PolicyDetails = () => {
                           <TableCell className="w-48">
                             {item.firmName}
                           </TableCell>
-                          <TableCell className="font-medium w-32">
-                            {item.accountValue}
-                          </TableCell>
                           <TableCell className="w-36">
                             {item.applicationSignDate}
                           </TableCell>
-                          <TableCell className="w-24">
-                            <span
-                              className={`inline-flex px-2 py-1 text-xs font-medium rounded-full ${
-                                item.status === "Active"
-                                  ? "bg-green-100 text-green-800"
-                                  : item.status === "Cancelled"
-                                    ? "bg-red-100 text-red-800"
-                                    : item.status === "Pending"
-                                      ? "bg-yellow-100 text-yellow-800"
-                                      : "bg-gray-100 text-gray-800"
-                              }`}
-                            >
-                              {item.status}
-                            </span>
+                          <TableCell className="font-medium w-32">
+                            {item.accountValue}
                           </TableCell>
-                          <TableCell className="w-32">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                navigate(
-                                  `/policy-transactions/TREATY-001?start=${item.applicationSignDate}&end=${item.applicationSignDate}&reinsurer=RE001&policy=${item.policyNumber}`,
-                                )
-                              }
-                              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-                            >
-                              <Eye className="w-4 h-4" />
-                              View Transactions
-                            </Button>
+                          <TableCell className="font-medium w-36">
+                            {item.reinsuredAccountValue}
                           </TableCell>
                         </TableRow>
                       ))}
