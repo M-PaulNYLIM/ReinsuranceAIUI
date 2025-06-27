@@ -365,8 +365,10 @@ const ReinsurerTransactionDetails = () => {
                     variant="outline"
                     size="sm"
                     onClick={() => {
+                      setSearchPolicyNumber("");
                       setSearchProductCode("");
                       setSearchProductName("");
+                      setSearchFirmName("");
                       setColumnFilters({});
                       setCurrentPage(1);
                     }}
@@ -376,29 +378,55 @@ const ReinsurerTransactionDetails = () => {
                   </Button>
                 </div>
 
-                <div className="flex items-center gap-3">
-                  <div className="flex-1 max-w-xs">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                      Policy Number
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search policy..."
+                      value={searchPolicyNumber}
+                      onChange={(e) => setSearchPolicyNumber(e.target.value)}
+                      className="w-full h-8 text-sm"
+                    />
+                  </div>
+
+                  <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">
                       Product Code
                     </label>
                     <Input
                       type="text"
-                      placeholder="Search by code..."
+                      placeholder="Search code..."
                       value={searchProductCode}
                       onChange={(e) => setSearchProductCode(e.target.value)}
                       className="w-full h-8 text-sm"
                     />
                   </div>
 
-                  <div className="flex-1 max-w-sm">
+                  <div>
                     <label className="block text-xs font-medium text-gray-700 mb-1">
                       Product Name
                     </label>
                     <Input
                       type="text"
-                      placeholder="Search by name..."
+                      placeholder="Search product..."
                       value={searchProductName}
                       onChange={(e) => setSearchProductName(e.target.value)}
+                      className="w-full h-8 text-sm"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-medium text-gray-700 mb-1">
+                      Firm Name
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="Search firm..."
+                      value={searchFirmName}
+                      onChange={(e) => setSearchFirmName(e.target.value)}
                       className="w-full h-8 text-sm"
                     />
                   </div>
