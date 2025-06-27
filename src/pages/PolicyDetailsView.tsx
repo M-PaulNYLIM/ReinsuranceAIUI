@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2, ChevronLeft, ChevronRight } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
@@ -174,6 +174,7 @@ const fetchPolicyDetails = async (
 const PolicyDetailsView = () => {
   const navigate = useNavigate();
   const { policyNumber } = useParams<{ policyNumber: string }>();
+  const [currentReinsurerIndex, setCurrentReinsurerIndex] = useState(0);
 
   // Fetch policy details using React Query
   const {
@@ -407,105 +408,267 @@ const PolicyDetailsView = () => {
                 </div>
               </InfoCard>
 
-              {/* Reinsurer Level Sections */}
-              {policyData.reinsurerLevels.map((reinsurer, index) => (
-                <InfoCard
-                  key={index}
-                  title={`Reinsurer Level Information - ${reinsurer.reinsurerName}`}
-                >
+              {/* Reinsurer Level Section with Navigation */}
+              {policyData.reinsurerLevels.length > 0 && (
+                <div className="bg-white border border-gray-200 rounded-lg p-4 mb-4">
+                  <div className="flex items-center justify-between mb-4 border-b border-gray-200 pb-2">
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      Reinsurer Level Information -{" "}
+                      {
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .reinsurerName
+                      }
+                    </h3>
+
+                    {/* Navigation Controls */}
+                    <div className="flex items-center gap-4">
+                      <div className="text-sm text-gray-600">
+                        {currentReinsurerIndex + 1} of{" "}
+                        {policyData.reinsurerLevels.length} Reinsurers
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            setCurrentReinsurerIndex(
+                              Math.max(0, currentReinsurerIndex - 1),
+                            )
+                          }
+                          disabled={currentReinsurerIndex === 0}
+                          className="flex items-center gap-1"
+                        >
+                          <ChevronLeft className="w-4 h-4" />
+                          Previous
+                        </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() =>
+                            setCurrentReinsurerIndex(
+                              Math.min(
+                                policyData.reinsurerLevels.length - 1,
+                                currentReinsurerIndex + 1,
+                              ),
+                            )
+                          }
+                          disabled={
+                            currentReinsurerIndex ===
+                            policyData.reinsurerLevels.length - 1
+                          }
+                          className="flex items-center gap-1"
+                        >
+                          Next
+                          <ChevronRight className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Current Reinsurer Information */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <InfoField
                       label="Reinsurer Name"
-                      value={reinsurer.reinsurerName}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .reinsurerName
+                      }
                     />
-                    <InfoField label="Treaty ID" value={reinsurer.treatyId} />
+                    <InfoField
+                      label="Treaty ID"
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .treatyId
+                      }
+                    />
                     <InfoField
                       label="Quota Share"
-                      value={reinsurer.quotaShare}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .quotaShare
+                      }
                     />
                     <InfoField
                       label="Ceding Premium Allowance"
-                      value={reinsurer.cedingPremiumAllowance}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .cedingPremiumAllowance
+                      }
                     />
                     <InfoField
                       label="Ceding Accumulated Value Allowance"
-                      value={reinsurer.cedingAccumulatedValueAllowance}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .cedingAccumulatedValueAllowance
+                      }
                     />
                     <InfoField
                       label="Expense Premium Allowance"
-                      value={reinsurer.expensePremiumAllowance}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .expensePremiumAllowance
+                      }
                     />
                     <InfoField
                       label="Expense Commission Allowance"
-                      value={reinsurer.expenseCommissionAllowance}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .expenseCommissionAllowance
+                      }
                     />
                     <InfoField
                       label="Premium Source"
-                      value={reinsurer.premiumSource}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .premiumSource
+                      }
                     />
                     <InfoField
                       label="Total Premiums for Period"
-                      value={reinsurer.totalPremiumsForPeriod}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalPremiumsForPeriod
+                      }
                     />
                     <InfoField
                       label="Total Partial Surrender"
-                      value={reinsurer.totalPartialSurrender}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalPartialSurrender
+                      }
                     />
                     <InfoField
                       label="Total Surrender"
-                      value={reinsurer.totalSurrender}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalSurrender
+                      }
                     />
                     <InfoField
                       label="Annuitization"
-                      value={reinsurer.annuitization}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .annuitization
+                      }
                     />
-                    <InfoField label="Death" value={reinsurer.death} />
-                    <InfoField label="Transfers" value={reinsurer.transfers} />
-                    <InfoField label="Fees" value={reinsurer.fees} />
+                    <InfoField
+                      label="Death"
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex].death
+                      }
+                    />
+                    <InfoField
+                      label="Transfers"
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .transfers
+                      }
+                    />
+                    <InfoField
+                      label="Fees"
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex].fees
+                      }
+                    />
                     <InfoField
                       label="Partial Surrender Charge"
-                      value={reinsurer.partialSurrenderCharge}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .partialSurrenderCharge
+                      }
                     />
                     <InfoField
                       label="Surrender Charge"
-                      value={reinsurer.surrenderCharge}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .surrenderCharge
+                      }
                     />
                     <InfoField
                       label="Market Value Adjustments"
-                      value={reinsurer.marketValueAdjustments}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .marketValueAdjustments
+                      }
                     />
                     <InfoField
                       label="Total Interest Earned"
-                      value={reinsurer.totalInterestEarned}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalInterestEarned
+                      }
                     />
                     <InfoField
                       label="Total Commission Paid"
-                      value={reinsurer.totalCommissionPaid}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalCommissionPaid
+                      }
                     />
                     <InfoField
                       label="Total Death Payments"
-                      value={reinsurer.totalDeathPayments}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalDeathPayments
+                      }
                     />
                     <InfoField
                       label="Total Interest Claims"
-                      value={reinsurer.totalInterestClaims}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalInterestClaims
+                      }
                     />
                     <InfoField
                       label="Total Death Claims"
-                      value={reinsurer.totalDeathClaims}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .totalDeathClaims
+                      }
                     />
-                    <InfoField label="Other" value={reinsurer.other} />
+                    <InfoField
+                      label="Other"
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex].other
+                      }
+                    />
                     <InfoField
                       label="Starting Accumulation Value"
-                      value={reinsurer.startingAccumulationValue}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .startingAccumulationValue
+                      }
                     />
                     <InfoField
                       label="Ending Accumulation Value"
-                      value={reinsurer.endingAccumulationValue}
+                      value={
+                        policyData.reinsurerLevels[currentReinsurerIndex]
+                          .endingAccumulationValue
+                      }
                     />
                   </div>
-                </InfoCard>
-              ))}
+
+                  {/* Optional: Reinsurer Indicator Dots */}
+                  {policyData.reinsurerLevels.length > 1 && (
+                    <div className="flex justify-center mt-4 pt-4 border-t border-gray-200">
+                      <div className="flex items-center gap-2">
+                        {policyData.reinsurerLevels.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setCurrentReinsurerIndex(index)}
+                            className={`w-3 h-3 rounded-full transition-colors ${
+                              index === currentReinsurerIndex
+                                ? "bg-blue-500"
+                                : "bg-gray-300 hover:bg-gray-400"
+                            }`}
+                            aria-label={`Go to reinsurer ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
 
               <div className="text-center mt-8">
                 <Button
