@@ -409,6 +409,22 @@ const PolicyDetails = () => {
                             />
                           </div>
                         </TableHead>
+                        <TableHead className="font-semibold text-gray-900 w-36">
+                          <div className="space-y-2">
+                            <div>Application Sign Date</div>
+                            <Input
+                              type="date"
+                              className="h-8 text-xs"
+                              value={columnFilters.applicationSignDate || ""}
+                              onChange={(e) =>
+                                handleColumnFilter(
+                                  "applicationSignDate",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </TableHead>
                         <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Account Value</div>
@@ -428,36 +444,20 @@ const PolicyDetails = () => {
                         </TableHead>
                         <TableHead className="font-semibold text-gray-900 w-36">
                           <div className="space-y-2">
-                            <div>Application Sign Date</div>
+                            <div>Reinsured Account Value</div>
                             <Input
-                              type="date"
+                              type="text"
+                              placeholder="Filter..."
                               className="h-8 text-xs"
-                              value={columnFilters.applicationSignDate || ""}
+                              value={columnFilters.reinsuredAccountValue || ""}
                               onChange={(e) =>
                                 handleColumnFilter(
-                                  "applicationSignDate",
+                                  "reinsuredAccountValue",
                                   e.target.value,
                                 )
                               }
                             />
                           </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-24">
-                          <div className="space-y-2">
-                            <div>Status</div>
-                            <Input
-                              type="text"
-                              placeholder="Filter..."
-                              className="h-8 text-xs"
-                              value={columnFilters.status || ""}
-                              onChange={(e) =>
-                                handleColumnFilter("status", e.target.value)
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
-                          <div className="py-2">Actions</div>
                         </TableHead>
                       </TableRow>
                     </TableHeader>
