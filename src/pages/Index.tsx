@@ -220,7 +220,7 @@ const Index = () => {
 
           {/* Quick Access Section */}
           <div className="mt-12">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-4">
               Quick Access
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
