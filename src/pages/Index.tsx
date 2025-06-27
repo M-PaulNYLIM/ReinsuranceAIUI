@@ -145,7 +145,7 @@ const Index = () => {
       <section className="px-6 md:px-12 py-12 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
-          <div className="flex flex-col items-start gap-2 mb-12">
+          <div className="flex flex-col items-start gap-2 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 leading-tight tracking-tight">
               Business Capabilities
             </h2>
