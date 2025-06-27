@@ -98,7 +98,7 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="relative px-6 py-20 md:py-40 flex flex-col items-center justify-center text-center bg-white bg-opacity-80 bg-blend-overlay bg-gray-50">
+      <section className="relative px-6 py-12 md:py-20 flex flex-col items-center justify-center text-center bg-white bg-opacity-80 bg-blend-overlay bg-gray-50">
         <div className="max-w-4xl mx-auto">
           {/* Title and Subtitle */}
           <div className="flex flex-col items-center gap-2 mb-8">
