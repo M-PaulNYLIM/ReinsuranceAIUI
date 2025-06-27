@@ -219,7 +219,7 @@ const Index = () => {
           </div>
 
           {/* Quick Access Section */}
-          <div className="mt-16">
+          <div className="mt-12">
             <h3 className="text-xl font-semibold text-gray-900 mb-6">
               Quick Access
             </h3>
