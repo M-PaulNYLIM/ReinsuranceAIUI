@@ -361,7 +361,7 @@ const PolicyDetails = () => {
                   <Table>
                     <TableHeader>
                       <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-900 w-32">
+                        <TableHead className="font-semibold text-gray-900 w-32 text-center">
                           <div className="space-y-2">
                             <div>Policy Number</div>
                             <Input
