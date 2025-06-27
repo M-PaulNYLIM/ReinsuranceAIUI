@@ -16,63 +16,137 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Search, Filter, Eye, Loader2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Search, Filter, Loader2 } from "lucide-react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 
 // API response type
-interface ApiReinsurerData {
-  REINSURER_ID: number;
-  REINSURER_NAME: string;
-  TREATY_ID: number;
+interface ApiReinsurerTransactionData {
+  PRODUCT_CODE: string;
+  PRODUCT_NAME: string;
+  TENOR: number;
   QUOTA_SHARE: string;
-  CEDEING_ALL_PREM: string;
-  EXPENSE_ALL_PREM: string;
-  PER_START_DATE: string;
-  PER_END_DATE: string;
+  CEDING_ALLOWANCE: string;
+  EXPENSE_ALLOWANCE: string;
 }
 
 // Transformed data type for display
-interface ReinsurerData {
-  reinsurerID: string;
-  reinsurerName: string;
-  treatyID: string;
+interface ReinsurerTransactionData {
+  productCode: string;
+  productName: string;
+  tenor: number;
   quotaShare: string;
   cedingAllowance: string;
   expenseAllowance: string;
-  periodStartDate: string;
-  periodEndDate: string;
 }
 
 // API fetch function
-const fetchReinsurerData = async (): Promise<ApiReinsurerData[]> => {
-  const response = await fetch(
-    "https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getGridDataReinsurerLanding",
-  );
+const fetchReinsurerTransactionData = async (
+  treatyId: string,
+): Promise<ApiReinsurerTransactionData[]> => {
+  // For now, return mock data since we don't have the actual API endpoint
+  // In a real implementation, this would call an API endpoint like:
+  // `https://2qiik3x7hi.execute-api.us-east-1.amazonaws.com/dev/getReinsurerTransactions/${treatyId}`
 
-  if (!response.ok) {
-    throw new Error("Failed to fetch reinsurer data");
-  }
-
-  return response.json();
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const mockData: ApiReinsurerTransactionData[] = [
+        {
+          PRODUCT_CODE: "LI001",
+          PRODUCT_NAME: "Term Life Insurance",
+          TENOR: 20,
+          QUOTA_SHARE: "35.5",
+          CEDING_ALLOWANCE: "2.5000",
+          EXPENSE_ALLOWANCE: "1.2500",
+        },
+        {
+          PRODUCT_CODE: "LI002",
+          PRODUCT_NAME: "Whole Life Insurance",
+          TENOR: 30,
+          QUOTA_SHARE: "40.0",
+          CEDING_ALLOWANCE: "3.0000",
+          EXPENSE_ALLOWANCE: "1.5000",
+        },
+        {
+          PRODUCT_CODE: "AN001",
+          PRODUCT_NAME: "Fixed Annuity",
+          TENOR: 15,
+          QUOTA_SHARE: "25.5",
+          CEDING_ALLOWANCE: "2.0000",
+          EXPENSE_ALLOWANCE: "1.0000",
+        },
+        {
+          PRODUCT_CODE: "AN002",
+          PRODUCT_NAME: "Variable Annuity",
+          TENOR: 25,
+          QUOTA_SHARE: "45.0",
+          CEDING_ALLOWANCE: "3.5000",
+          EXPENSE_ALLOWANCE: "2.0000",
+        },
+        {
+          PRODUCT_CODE: "DI001",
+          PRODUCT_NAME: "Disability Insurance",
+          TENOR: 10,
+          QUOTA_SHARE: "30.0",
+          CEDING_ALLOWANCE: "2.2500",
+          EXPENSE_ALLOWANCE: "1.1250",
+        },
+        {
+          PRODUCT_CODE: "CI001",
+          PRODUCT_NAME: "Critical Illness",
+          TENOR: 20,
+          QUOTA_SHARE: "50.0",
+          CEDING_ALLOWANCE: "4.0000",
+          EXPENSE_ALLOWANCE: "2.2500",
+        },
+        {
+          PRODUCT_CODE: "UL001",
+          PRODUCT_NAME: "Universal Life",
+          TENOR: 40,
+          QUOTA_SHARE: "38.5",
+          CEDING_ALLOWANCE: "3.2500",
+          EXPENSE_ALLOWANCE: "1.7500",
+        },
+        {
+          PRODUCT_CODE: "TR001",
+          PRODUCT_NAME: "Travel Insurance",
+          TENOR: 1,
+          QUOTA_SHARE: "20.0",
+          CEDING_ALLOWANCE: "1.5000",
+          EXPENSE_ALLOWANCE: "0.7500",
+        },
+      ];
+      resolve(mockData);
+    }, 800);
+  });
 };
 
 // Transform API data to display format
-const transformApiData = (apiData: ApiReinsurerData[]): ReinsurerData[] => {
+const transformApiData = (
+  apiData: ApiReinsurerTransactionData[],
+): ReinsurerTransactionData[] => {
   return apiData.map((item) => ({
-    reinsurerID: item.REINSURER_ID.toString(),
-    reinsurerName: item.REINSURER_NAME,
-    treatyID: item.TREATY_ID.toString(),
-    quotaShare: `${parseFloat(item.QUOTA_SHARE).toFixed(2)}%`,
-    cedingAllowance: parseFloat(item.CEDEING_ALL_PREM).toFixed(4),
-    expenseAllowance: parseFloat(item.EXPENSE_ALL_PREM).toFixed(4),
-    periodStartDate: new Date(item.PER_START_DATE).toISOString().split("T")[0],
-    periodEndDate: new Date(item.PER_END_DATE).toISOString().split("T")[0],
+    productCode: item.PRODUCT_CODE,
+    productName: item.PRODUCT_NAME,
+    tenor: item.TENOR,
+    quotaShare: `${parseFloat(item.QUOTA_SHARE).toFixed(1)}%`,
+    cedingAllowance: parseFloat(item.CEDING_ALLOWANCE).toFixed(4),
+    expenseAllowance: parseFloat(item.EXPENSE_ALLOWANCE).toFixed(4),
   }));
 };
 
-const ReinsurerDetails = () => {
+const ReinsurerTransactionDetails = () => {
   const navigate = useNavigate();
+  const { treatyID } = useParams<{ treatyID: string }>();
+  const [searchParams] = useSearchParams();
+
+  // Get reinsurer info from URL params
+  const reinsurerID = searchParams.get("reinsurer") || "N/A";
+  const startDate = searchParams.get("start") || "N/A";
+  const endDate = searchParams.get("end") || "N/A";
+
+  // Fetch reinsurer name (in real implementation, this would come from another API call)
+  const reinsurerName = "Global Reinsurance Partners"; // Mock data
 
   // Fetch data using React Query
   const {
@@ -80,22 +154,20 @@ const ReinsurerDetails = () => {
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["reinsurerData"],
-    queryFn: fetchReinsurerData,
+    queryKey: ["reinsurerTransactionData", treatyID],
+    queryFn: () => fetchReinsurerTransactionData(treatyID || ""),
+    enabled: !!treatyID,
   });
 
   // Transform API data
-  const reinsurerData = useMemo(() => {
+  const transactionData = useMemo(() => {
     if (!apiData) return [];
     return transformApiData(apiData);
   }, [apiData]);
 
   // Search states
-  const [searchReinsurerID, setSearchReinsurerID] = useState("");
-  const [searchReinsurerName, setSearchReinsurerName] = useState("");
-  const [searchTreatyID, setSearchTreatyID] = useState("");
-  const [searchStartDate, setSearchStartDate] = useState("");
-  const [searchEndDate, setSearchEndDate] = useState("");
+  const [searchProductCode, setSearchProductCode] = useState("");
+  const [searchProductName, setSearchProductName] = useState("");
 
   // Column filter states
   const [columnFilters, setColumnFilters] = useState<{ [key: string]: string }>(
@@ -108,48 +180,26 @@ const ReinsurerDetails = () => {
 
   // Filtered data based on search criteria
   const filteredData = useMemo(() => {
-    return reinsurerData.filter((item) => {
-      const matchesReinsurerID = item.reinsurerID
+    return transactionData.filter((item) => {
+      const matchesProductCode = item.productCode
         .toLowerCase()
-        .includes(searchReinsurerID.toLowerCase());
-      const matchesReinsurerName = item.reinsurerName
+        .includes(searchProductCode.toLowerCase());
+      const matchesProductName = item.productName
         .toLowerCase()
-        .includes(searchReinsurerName.toLowerCase());
-      const matchesTreatyID = item.treatyID
-        .toLowerCase()
-        .includes(searchTreatyID.toLowerCase());
-      const matchesStartDate =
-        !searchStartDate || item.periodStartDate >= searchStartDate;
-      const matchesEndDate =
-        !searchEndDate || item.periodEndDate <= searchEndDate;
+        .includes(searchProductName.toLowerCase());
 
       // Apply column filters
       const matchesColumnFilters = Object.entries(columnFilters).every(
         ([column, filter]) => {
           if (!filter) return true;
           const value = item[column as keyof typeof item];
-          return value.toLowerCase().includes(filter.toLowerCase());
+          return value.toString().toLowerCase().includes(filter.toLowerCase());
         },
       );
 
-      return (
-        matchesReinsurerID &&
-        matchesReinsurerName &&
-        matchesTreatyID &&
-        matchesStartDate &&
-        matchesEndDate &&
-        matchesColumnFilters
-      );
+      return matchesProductCode && matchesProductName && matchesColumnFilters;
     });
-  }, [
-    searchReinsurerID,
-    searchReinsurerName,
-    searchTreatyID,
-    searchStartDate,
-    searchEndDate,
-    columnFilters,
-    reinsurerData,
-  ]);
+  }, [searchProductCode, searchProductName, columnFilters, transactionData]);
 
   // Paginated data
   const paginatedData = useMemo(() => {
@@ -185,11 +235,11 @@ const ReinsurerDetails = () => {
           <Button
             variant="ghost"
             size="sm"
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/reinsurer-details")}
             className="flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
-            Back to Home
+            Back to Reinsurer Details
           </Button>
         </div>
         <div className="flex items-center gap-3">
@@ -214,12 +264,52 @@ const ReinsurerDetails = () => {
         <div className="max-w-7xl mx-auto">
           <div className="mb-6">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Reinsurer Details
+              Reinsurance Transaction Details
             </h1>
             <p className="text-xl text-gray-600">
-              Manage and view comprehensive information about your reinsurance
-              partners
+              Detailed transaction information for reinsurance products
             </p>
+          </div>
+
+          {/* Reinsurer Information Section */}
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4">
+              Reinsurer Information
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-blue-700 mb-1">
+                  Reinsurer Name
+                </label>
+                <div className="text-lg font-semibold text-blue-900">
+                  {reinsurerName}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-blue-700 mb-1">
+                  Treaty ID
+                </label>
+                <div className="text-lg font-semibold text-blue-900">
+                  {treatyID}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-blue-700 mb-1">
+                  Period Start Date
+                </label>
+                <div className="text-lg font-semibold text-blue-900">
+                  {startDate}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-blue-700 mb-1">
+                  Period End Date
+                </label>
+                <div className="text-lg font-semibold text-blue-900">
+                  {endDate}
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Loading State */}
@@ -227,7 +317,7 @@ const ReinsurerDetails = () => {
             <div className="flex items-center justify-center py-16">
               <div className="flex items-center gap-3 text-gray-600">
                 <Loader2 className="w-6 h-6 animate-spin" />
-                <span className="text-lg">Loading reinsurer data...</span>
+                <span className="text-lg">Loading transaction data...</span>
               </div>
             </div>
           )}
@@ -239,7 +329,7 @@ const ReinsurerDetails = () => {
                 <h3 className="text-lg font-semibold">Error Loading Data</h3>
               </div>
               <p className="text-red-700 mt-2">
-                Failed to load reinsurer data. Please try refreshing the page.
+                Failed to load transaction data. Please try refreshing the page.
               </p>
               <Button
                 variant="outline"
@@ -263,66 +353,29 @@ const ReinsurerDetails = () => {
                   </h3>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Reinsurer ID
+                      Product Code
                     </label>
                     <Input
                       type="text"
-                      placeholder="Search by Reinsurer ID"
-                      value={searchReinsurerID}
-                      onChange={(e) => setSearchReinsurerID(e.target.value)}
+                      placeholder="Search by Product Code"
+                      value={searchProductCode}
+                      onChange={(e) => setSearchProductCode(e.target.value)}
                       className="w-full"
                     />
                   </div>
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Reinsurer Name
+                      Product Name
                     </label>
                     <Input
                       type="text"
-                      placeholder="Search by Reinsurer Name"
-                      value={searchReinsurerName}
-                      onChange={(e) => setSearchReinsurerName(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Treaty ID
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Search by Treaty ID"
-                      value={searchTreatyID}
-                      onChange={(e) => setSearchTreatyID(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Period Start Date
-                    </label>
-                    <Input
-                      type="date"
-                      value={searchStartDate}
-                      onChange={(e) => setSearchStartDate(e.target.value)}
-                      className="w-full"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Period End Date
-                    </label>
-                    <Input
-                      type="date"
-                      value={searchEndDate}
-                      onChange={(e) => setSearchEndDate(e.target.value)}
+                      placeholder="Search by Product Name"
+                      value={searchProductName}
+                      onChange={(e) => setSearchProductName(e.target.value)}
                       className="w-full"
                     />
                   </div>
@@ -332,11 +385,8 @@ const ReinsurerDetails = () => {
                   <Button
                     variant="outline"
                     onClick={() => {
-                      setSearchReinsurerID("");
-                      setSearchReinsurerName("");
-                      setSearchTreatyID("");
-                      setSearchStartDate("");
-                      setSearchEndDate("");
+                      setSearchProductCode("");
+                      setSearchProductName("");
                       setColumnFilters({});
                       setCurrentPage(1);
                     }}
@@ -352,7 +402,7 @@ const ReinsurerDetails = () => {
                 <div className="p-4 border-b border-gray-200">
                   <div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-900">
-                      Reinsurer Records
+                      Product Transaction Records
                     </h3>
                     <div className="flex items-center gap-4">
                       <div className="flex items-center gap-2 text-sm">
@@ -387,17 +437,17 @@ const ReinsurerDetails = () => {
                   <Table>
                     <TableHeader>
                       <TableRow className="bg-gray-50">
-                        <TableHead className="font-semibold text-gray-900 w-24">
+                        <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
-                            <div>Reinsurer ID</div>
+                            <div>Product Code</div>
                             <Input
-                              type="number"
+                              type="text"
                               placeholder="Filter..."
                               className="h-8 text-xs"
-                              value={columnFilters.reinsurerID || ""}
+                              value={columnFilters.productCode || ""}
                               onChange={(e) =>
                                 handleColumnFilter(
-                                  "reinsurerID",
+                                  "productCode",
                                   e.target.value,
                                 )
                               }
@@ -406,36 +456,36 @@ const ReinsurerDetails = () => {
                         </TableHead>
                         <TableHead className="font-semibold text-gray-900 w-64">
                           <div className="space-y-2">
-                            <div>Reinsurer Name</div>
+                            <div>Product Name</div>
                             <Input
                               type="text"
                               placeholder="Filter..."
                               className="h-8 text-xs"
-                              value={columnFilters.reinsurerName || ""}
+                              value={columnFilters.productName || ""}
                               onChange={(e) =>
                                 handleColumnFilter(
-                                  "reinsurerName",
+                                  "productName",
                                   e.target.value,
                                 )
                               }
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-20">
+                        <TableHead className="font-semibold text-gray-900 w-24">
                           <div className="space-y-2">
-                            <div>Treaty ID</div>
+                            <div>Tenor</div>
                             <Input
                               type="number"
                               placeholder="Filter..."
                               className="h-8 text-xs"
-                              value={columnFilters.treatyID || ""}
+                              value={columnFilters.tenor || ""}
                               onChange={(e) =>
-                                handleColumnFilter("treatyID", e.target.value)
+                                handleColumnFilter("tenor", e.target.value)
                               }
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-24">
+                        <TableHead className="font-semibold text-gray-900 w-28">
                           <div className="space-y-2">
                             <div>Quota Share</div>
                             <Input
@@ -449,7 +499,7 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-28">
+                        <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Ceding Allowance</div>
                             <Input
@@ -467,7 +517,7 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-28">
+                        <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Expense Allowance</div>
                             <Input
@@ -485,84 +535,28 @@ const ReinsurerDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
-                          <div className="space-y-2">
-                            <div>Period Start Date</div>
-                            <Input
-                              type="date"
-                              className="h-8 text-xs"
-                              value={columnFilters.periodStartDate || ""}
-                              onChange={(e) =>
-                                handleColumnFilter(
-                                  "periodStartDate",
-                                  e.target.value,
-                                )
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
-                          <div className="space-y-2">
-                            <div>Period End Date</div>
-                            <Input
-                              type="date"
-                              className="h-8 text-xs"
-                              value={columnFilters.periodEndDate || ""}
-                              onChange={(e) =>
-                                handleColumnFilter(
-                                  "periodEndDate",
-                                  e.target.value,
-                                )
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
-                          <div className="py-2">Actions</div>
-                        </TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {paginatedData.map((item, index) => (
                         <TableRow key={index} className="hover:bg-gray-50">
-                          <TableCell className="font-medium w-24">
-                            {item.reinsurerID}
+                          <TableCell className="font-medium w-32">
+                            {item.productCode}
                           </TableCell>
                           <TableCell className="w-64">
-                            {item.reinsurerName}
+                            {item.productName}
                           </TableCell>
-                          <TableCell className="w-20">
-                            {item.treatyID}
+                          <TableCell className="w-24 text-center">
+                            {item.tenor}
                           </TableCell>
-                          <TableCell className="w-24">
+                          <TableCell className="w-28 text-center">
                             {item.quotaShare}
                           </TableCell>
-                          <TableCell className="w-28">
+                          <TableCell className="w-32 text-center">
                             {item.cedingAllowance}
                           </TableCell>
-                          <TableCell className="w-28">
+                          <TableCell className="w-32 text-center">
                             {item.expenseAllowance}
-                          </TableCell>
-                          <TableCell className="w-32">
-                            {item.periodStartDate}
-                          </TableCell>
-                          <TableCell className="w-32">
-                            {item.periodEndDate}
-                          </TableCell>
-                          <TableCell className="w-32">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                navigate(
-                                  `/reinsurer-transactions/${item.treatyID}?start=${item.periodStartDate}&end=${item.periodEndDate}&reinsurer=${item.reinsurerID}`,
-                                )
-                              }
-                              className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
-                            >
-                              <Eye className="w-4 h-4" />
-                              View Transactions
-                            </Button>
                           </TableCell>
                         </TableRow>
                       ))}
@@ -648,10 +642,10 @@ const ReinsurerDetails = () => {
 
               <div className="text-center mt-8">
                 <Button
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/reinsurer-details")}
                   className="bg-gray-800 text-gray-100 border-gray-800 hover:bg-gray-900"
                 >
-                  Return to Dashboard
+                  Return to Reinsurer Details
                 </Button>
               </div>
             </>
@@ -662,4 +656,4 @@ const ReinsurerDetails = () => {
   );
 };
 
-export default ReinsurerDetails;
+export default ReinsurerTransactionDetails;

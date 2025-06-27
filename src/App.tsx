@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import ReinsurerDetails from "./pages/ReinsurerDetails";
 import PolicyDetails from "./pages/PolicyDetails";
 import PolicyTransactionDetails from "./pages/PolicyTransactionDetails";
+import ReinsurerTransactionDetails from "./pages/ReinsurerTransactionDetails";
 import Analytics from "./pages/Analytics";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,10 @@ const App = () => (
           <Route
             path="/policy-transactions/:treatyID"
             element={<PolicyTransactionDetails />}
+          />
+          <Route
+            path="/reinsurer-transactions/:treatyID"
+            element={<ReinsurerTransactionDetails />}
           />
           <Route path="/analytics" element={<Analytics />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
