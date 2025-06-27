@@ -22,22 +22,20 @@ import { useQuery } from "@tanstack/react-query";
 
 // API response type
 interface ApiReinsurerTransactionData {
+  POLICY_NUMBER: string;
   PRODUCT_CODE: string;
   PRODUCT_NAME: string;
   TENOR: number;
-  QUOTA_SHARE: string;
-  CEDING_ALLOWANCE: string;
-  EXPENSE_ALLOWANCE: string;
+  FIRM_NAME: string;
 }
 
 // Transformed data type for display
 interface ReinsurerTransactionData {
+  policyNumber: string;
   productCode: string;
   productName: string;
   tenor: number;
-  quotaShare: string;
-  cedingAllowance: string;
-  expenseAllowance: string;
+  firmName: string;
 }
 
 // API fetch function
