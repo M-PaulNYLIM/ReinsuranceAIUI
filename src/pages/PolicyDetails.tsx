@@ -126,9 +126,6 @@ const PolicyDetails = () => {
       const matchesFirmName = item.firmName
         .toLowerCase()
         .includes(searchFirmName.toLowerCase());
-      const matchesStatus = item.status
-        .toLowerCase()
-        .includes(searchStatus.toLowerCase());
 
       // Apply column filters
       const matchesColumnFilters = Object.entries(columnFilters).every(
@@ -143,7 +140,6 @@ const PolicyDetails = () => {
         matchesPolicyNumber &&
         matchesProductName &&
         matchesFirmName &&
-        matchesStatus &&
         matchesColumnFilters
       );
     });
@@ -151,7 +147,6 @@ const PolicyDetails = () => {
     searchPolicyNumber,
     searchProductName,
     searchFirmName,
-    searchStatus,
     columnFilters,
     policyData,
   ]);
