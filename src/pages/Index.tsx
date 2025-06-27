@@ -105,7 +105,7 @@ const Index = () => {
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight tracking-tight">
               RECAP
             </h1>
-            <p className="text-lg md:text-2xl lg:text-3xl text-gray-900 font-normal leading-relaxed max-w-3xl">
+            <p className="text-base md:text-lg lg:text-xl text-gray-900 font-normal leading-relaxed max-w-3xl">
               Reinsurance Engine for Calculations, Administration & Processing
             </p>
           </div>
