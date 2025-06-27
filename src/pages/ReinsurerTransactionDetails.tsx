@@ -473,6 +473,23 @@ const ReinsurerTransactionDetails = () => {
                   <Table>
                     <TableHeader>
                       <TableRow className="bg-gray-50">
+                        <TableHead className="font-semibold text-gray-900 w-36">
+                          <div className="space-y-2">
+                            <div>Policy Number</div>
+                            <Input
+                              type="text"
+                              placeholder="Filter..."
+                              className="h-8 text-xs"
+                              value={columnFilters.policyNumber || ""}
+                              onChange={(e) =>
+                                handleColumnFilter(
+                                  "policyNumber",
+                                  e.target.value,
+                                )
+                              }
+                            />
+                          </div>
+                        </TableHead>
                         <TableHead className="font-semibold text-gray-900 w-32">
                           <div className="space-y-2">
                             <div>Product Code</div>
@@ -490,7 +507,7 @@ const ReinsurerTransactionDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-64">
+                        <TableHead className="font-semibold text-gray-900 w-48">
                           <div className="space-y-2">
                             <div>Product Name</div>
                             <Input
@@ -521,52 +538,16 @@ const ReinsurerTransactionDetails = () => {
                             />
                           </div>
                         </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-28">
+                        <TableHead className="font-semibold text-gray-900 w-48">
                           <div className="space-y-2">
-                            <div>Quota Share</div>
+                            <div>Firm Name</div>
                             <Input
                               type="text"
                               placeholder="Filter..."
                               className="h-8 text-xs"
-                              value={columnFilters.quotaShare || ""}
+                              value={columnFilters.firmName || ""}
                               onChange={(e) =>
-                                handleColumnFilter("quotaShare", e.target.value)
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
-                          <div className="space-y-2">
-                            <div>Ceding Allowance</div>
-                            <Input
-                              type="number"
-                              step="0.0001"
-                              placeholder="Filter..."
-                              className="h-8 text-xs"
-                              value={columnFilters.cedingAllowance || ""}
-                              onChange={(e) =>
-                                handleColumnFilter(
-                                  "cedingAllowance",
-                                  e.target.value,
-                                )
-                              }
-                            />
-                          </div>
-                        </TableHead>
-                        <TableHead className="font-semibold text-gray-900 w-32">
-                          <div className="space-y-2">
-                            <div>Expense Allowance</div>
-                            <Input
-                              type="number"
-                              step="0.0001"
-                              placeholder="Filter..."
-                              className="h-8 text-xs"
-                              value={columnFilters.expenseAllowance || ""}
-                              onChange={(e) =>
-                                handleColumnFilter(
-                                  "expenseAllowance",
-                                  e.target.value,
-                                )
+                                handleColumnFilter("firmName", e.target.value)
                               }
                             />
                           </div>
