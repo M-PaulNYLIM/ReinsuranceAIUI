@@ -34,9 +34,9 @@ interface PolicyData {
   policyNumber: string;
   productName: string;
   firmName: string;
-  accountValue: string;
   applicationSignDate: string;
-  status: string;
+  accountValue: string;
+  reinsuredAccountValue: string;
 }
 
 // API fetch function
